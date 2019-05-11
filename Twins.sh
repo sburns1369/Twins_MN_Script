@@ -167,7 +167,7 @@ echo -e "      |  N  |"
 sleep 4
 echo -e "      |  S  |"
 sleep 4
-echo -e "      |    |"
+echo -e "      |     |"
 sleep 4
 echo -e "      |     |"
 sleep 4
