@@ -665,7 +665,7 @@ echo -e "${BOLD} Masternode - \#6 IP: [${MNIP6}]:37817${CLEAR}"
 echo -e "${BOLD} Masternode - \#7 IP: [${MNIP7}]:37817${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
-echo -e ${BLUE}" Twins address: insertwallet"${CLEAR}
+echo -e ${BLUE}" Twins address: WTXakU15hxA9Q5yXMNacMPFAayovMNot69"${CLEAR}
 echo -e ${BLUE}" XGS address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
 echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
 echo

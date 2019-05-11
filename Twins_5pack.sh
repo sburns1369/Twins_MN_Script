@@ -1,7 +1,7 @@
 #!/bin/bash
 #0.99-- NullEntryDev Script
-NODESL=Eight
-NODESN=8
+NODESL=Five
+NODESN=5
 BLUE='\033[0;96m'
 GREEN='\033[0;92m'
 RED='\033[0;91m'
@@ -543,7 +543,7 @@ echo -e "${BOLD} Masternode - \#4 IP: [${MNIP4}]:37817${CLEAR}"
 echo -e "${BOLD} Masternode - \#5 IP: [${MNIP5}]:37817${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
-echo -e ${BLUE}" Twins address: insertwallet"${CLEAR}
+echo -e ${BLUE}" Twins address: WTXakU15hxA9Q5yXMNacMPFAayovMNot69"${CLEAR}
 echo -e ${BLUE}" XGS address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
 echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
 echo

@@ -1323,6 +1323,7 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
     echo -e ${BLUE}" ICA address: iAAVTcoF14zQgVbUcoVASoRGDxWy3kYzRz"${CLEAR}
     echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
     echo -e ${BLUE}" PRX address: PRa4W66rUB8VN3wiynBwC7YYFc8fC6ywxQ"${CLEAR}
+    echo -e ${BLUE}" Twins address: WTXakU15hxA9Q5yXMNacMPFAayovMNot69"${CLEAR}
     echo -e ${BLUE}" XGS address: GcToAa57WXPsVwXB9LKvui215AC3bsvneA"${CLEAR}
     echo
     echo -e ${YELLOW}"Need help?  Find Sburns1369#1584 one Discord - https://discord.gg/YhJ8v3g"${CLEAR}
@@ -1453,8 +1454,7 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   #Program Core
   clear
   null_logo
-
-  Twins_Logo
+  twins_Logo
   function_check_first_run
   function_first_nodecheck
   while true
