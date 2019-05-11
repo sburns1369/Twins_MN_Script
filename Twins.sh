@@ -114,34 +114,7 @@ echo -e "${RED}                                                           ";
   echo -e "${CLEAR}"
   pause
   }
-#BitCoinGenX_Logo(){
-  clear
-  echo
-  echo -e "${BLUE} This Script was sponsored by : ${GREEN}"
-  echo -e " ██████╗ ██╗████████╗ ██████╗ ██████╗ ██╗███╗   ██╗ ";
-  echo -e " ██╔══██╗██║╚══██╔══╝██╔════╝██╔═══██╗██║████╗  ██║ ";
-  echo -e " ██████╔╝██║   ██║   ██║     ██║   ██║██║██╔██╗ ██║ ";
-  echo -e " ██╔══██╗██║   ██║   ██║     ██║   ██║██║██║╚██╗██║ ";
-  echo -e " ██████╔╝██║   ██║   ╚██████╗╚██████╔╝██║██║ ╚████║ ";
-  echo -e " ╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝ ";
-  echo -e "   ${YELLOW}                                ██╗      ██╗              "
-  echo -e "     ${RED}                              ╚██╗    ██╔╝              "
-  echo -e "  ${YELLOW}     ██████╗ ███████╗███╗   ██╗   ╚██╗  ██╔╝    ";
-  echo -e "  ${YELLOW}    ██╔════╝ ██╔════╝████╗  ██║${RED}    ╚██╗██╔╝    ";
-  echo -e "  ${YELLOW}    ██║  ███╗█████╗  ██╔██╗ ██║     ╚███╔╝     ";
-  echo -e "  ${YELLOW}    ██║   ██║██╔══╝  ██║╚██╗██║${RED}     ██╔██╗     ";
-  echo -e "  ${YELLOW}    ╚██████╔╝███████╗██║ ╚████║    ██╔╝ ██╗    ";
-  echo -e "  ${YELLOW}     ╚═════╝ ╚══════╝╚═╝  ╚═══╝${RED}   ██╔╝   ██╗    ";
-  echo -e "  ${YELLOW}        * Green Protocol *       ██╔╝     ██╗    ";
-  echo -e " ${RED}       * ZeroCoin Protocol *      ╚═╝      ╚═╝         "
-  echo -e "${GREEN}     On the Web (BGX Wallets) : https://btcgenx.net/ "
-  echo -e "${GREEN}      Official Discord : https://discord.gg/QQHgkuV "
-  echo -e "${GREEN}Buy BGX : https://app.stex.com/en/basic-trade/pair/BTC/BGX "
-  echo
-  echo -e "${BLUE}  This Script was made by request of a community member"
-  echo -e "${BLUE}  NOT to be mistaken as part of the official BGX Project${CLEAR}"
-  pause
-  }
+#Logo(){
 rocketstrap_delay(){
 clear
 echo
