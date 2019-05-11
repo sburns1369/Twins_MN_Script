@@ -5,37 +5,37 @@
 #As well as the donation address for the “Buy the poor guy a red bull”
 #LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H
 #This script work is still in active deployment so please keep an eye April 2019
-declare -i NC PRX PRXC PRXOld PRXMN0 PRXMN1 PRXMN2 PRXMN3 PRXMN4 PRXMN5 PRXMN6 PRXMN7 PRXMN8
+declare -i NC DEV DEVC DEVOld DEVMN0 DEVMN1 DEVMN2 DEVMN3 DEVMN4 DEVMN5 DEVMN6 DEVMN7 DEVMN8
 #Counter
 NC=0
 #Coin MN found 0 false 1 true
-PRX=0
+DEV=0
 #Masternode Counter
-PRXC=0
+DEVC=0
 #Coinname Lowercase
-COINl=proxynode
+COINl=twins
 #Coin ticket symbol
-COIN3=PRX
-COIN3l=PRX
-COINDAEMON=prxd
-COINDAEMONCLI=prx-cli
-COINCORE=.proxynode
-COINCONFIG=prx.conf
-COINHOME=/home/proxynode
+COIN3=WIN
+COIN3l=win
+COINDAEMON=twinsd
+COINDAEMONCLI=twins-cli
+COINCORE=.twins
+COINCONFIG=twins.conf
+COINHOME=/home/twins
 #wallet downnload and extractions commands
-DOWNLOADCOINFILES=https://github.com/ProxyNode/proxynode/releases/download/v1.0.0/Linux.zip
-COINFILES=Linux.zip
-DECOMPRESS=unzip
+DOWNLOADCOINFILES=https://github.com/NewCapital/TWINS-Core/releases/download/twins_v3.2.1.0/twins-3.2.1.0-x86_64-linux-gnu.tar.gz
+COINFILES=twins-3.2.1.0-x86_64-linux-gnu.tar.gz
+DECOMPRESS='tar -xvzf'
 #rocketstrap
-NEBootStrap=http://nullentry.com/chain/PRX/bootstrap.rar
-ADDNODE0=107.191.50.119:12195
-ADDNODE1=108.61.203.144:12195
-ADDNODE2=45.76.54.39:12195
-ADDNODE3=209.97.166.184:12195
-ADDNODE4=198.13.61.70:12195
-ADDNODE5=3.80.198.193:12195
-COINPORT=12195
-COINRPCPORT=12295
+NEBootStrap=http://nullentry.com/chain/TWINS/rocketstrap.rar
+ADDNODE0=23.94.102.195
+ADDNODE1=94.177.180.92:37817
+ADDNODE2=195.201.138.177:37817
+ADDNODE3=34.210.87.100:37817
+ADDNODE4=54.213.46.194:37817
+ADDNODE5=116.203.115.149:37817
+COINPORT=37807
+COINRPCPORT=13295
 #path to NullEntryDev stuff
 DPATH=/usr/local/nullentrydev/
 #IPCHECK
@@ -81,31 +81,36 @@ echo "                                                                          
 #ASCII art generated from patorjk.com
 pause
 }
-#GenesisX logo
-ProxyNode_Logo(){
+#twins_Logo
+twins_Logo(){
   clear
   echo "                                                                      ";
   echo "                                                                      ";
   echo -e "      ${GREEN}                                                                ";
-  clear
-  echo "                                                                      ";
-  echo "                                                                      ";
-  echo -e "      ${GREEN}                                                                ";
-  echo "   ______                               ______              _        ";
-  echo "  (_____ \                             |  ___ \            | |       ";
-  echo "   _____) )  ____   ___   _   _  _   _ | |   | |  ___    _ | |  ____ ";
-  echo "  |  ____/  / ___) / _ \ ( \ / )| | | || |   | | / _ \  / || | / _  )";
-  echo "  | |      | |    | |_| | ) X ( | |_| || |   | || |_| |( (_| |( (/ / ";
-  echo "  |_|      |_|     \___/ (_/ \_) \__  ||_|   |_| \___/  \____| \____)";
-  echo "                                 (____/                               ";
-  echo -e "${RED}                                                           ";
-  echo -e "      ╔╦╗┌─┐┌─┐┌┬┐┌─┐┬─┐┌┐┌┌─┐┌┬┐┌─┐  ╔╦╗┌─┐┌┐┌┌─┐┌─┐┌─┐┬─┐ ";
-  echo -e "      ║║║├─┤└─┐ │ ├┤ ├┬┘││││ │ ││├┤   ║║║├─┤│││├─┤│ ┬├┤ ├┬┘";
-  echo -e "      ╩ ╩┴ ┴└─┘ ┴ └─┘┴└─┘└┘└─┘─┴┘└─┘  ╩ ╩┴ ┴┘└┘┴ ┴└─┘└─┘┴└─";
+  echo " .----------------. .----------------. .----------------. .-----------------..----------------. ";
+echo "| .--------------. | .--------------. | .--------------. | .--------------. | .--------------. |";
+echo "| |  _________   | | | _____  _____ | | |     _____    | | | ____  _____  | | |    _______   | |";
+echo "| | |  _   _  |  | | ||_   _||_   _|| | |    |_   _|   | | ||_   \|_   _| | | |   /  ___  |  | |";
+echo "| | |_/ | | \_|  | | |  | | /\ | |  | | |      | |     | | |  |   \ | |   | | |  |  (__ \_|  | |";
+echo "| |     | |      | | |  | |/  \| |  | | |      | |     | | |  | |\ \| |   | | |   '.___\`-.  | |";
+echo "| |    _| |_     | | |  |   /\   |  | | |     _| |_    | | | _| |_\   |_  | | |  |\`\____) | | |";
+echo "| |   |_____|    | | |  |__/  \__|  | | |    |_____|   | | ||_____|\____| | | |  |_______.'  | |";
+echo "| |              | | |              | | |              | | |              | | |              | |";
+echo "| '--------------' | '--------------' | '--------------' | '--------------' | '--------------' |";
+echo " '----------------' '----------------' '----------------' '----------------' '----------------' ";
+echo "              _                               _            ";
+echo "   __ __ __  (_)    _ _            __ __ __  (_)    _ _    ";
+echo "   \ V  V /  | |   | ' \      _    \ V  V /  | |   | ' \   ";
+echo "    \_/\_/  _|_|_  |_||_|   _(_)_   \_/\_/  _|_|_  |_||_|  ";
+echo "  _|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| ";
+echo "  \"\`-0-0-'\"\`-0-0-'\"\`-0-0-'\"\`-0-0-'\"\`-0-0-'\"\`-0-0-'\"\`-0-0-' ";
+echo -e "${RED}                                                           ";
+  echo -e "     ╔╦╗┌─┐┌─┐┌┬┐┌─┐┬─┐┌┐┌┌─┐┌┬┐┌─┐  ╔╦╗┌─┐┌┐┌┌─┐┌─┐┌─┐┬─┐ ";
+  echo -e "     ║║║├─┤└─┐ │ ├┤ ├┬┘││││ │ ││├┤   ║║║├─┤│││├─┤│ ┬├┤ ├┬┘";
+  echo -e "     ╩ ╩┴ ┴└─┘ ┴ └─┘┴└─┘└┘└─┘─┴┘└─┘  ╩ ╩┴ ┴┘└┘┴ ┴└─┘└─┘┴└─";
   echo -e "                               ";
-  echo -e "${BLUE}     This Script was made by request of a BGX\XGS community member"
-  echo -e "${BLUE}      NOT to be mistaken as part of the official BGX\XGS Projects"
-  echo -e "${CLEAR}"
+  echo -e "${BLUE}      This Script was made by request of a BGX community member"
+  echo -e "${BLUE}      NOT to be mistaken as part of the official BGX Projects"
   echo -e "${CLEAR}"
   pause
   }
@@ -177,23 +182,25 @@ echo -e "       /___\\ "
 sleep 4
 echo -e "      |=   =|"
 sleep 4
-echo -e "      |  P  |"
+echo -e "      |     |"
 sleep 4
-echo -e "      |  R  |"
+echo -e "      |  T  |"
 sleep 4
-echo -e "      |  O  |"
+echo -e "      |  W  |"
 sleep 4
-echo -e "      |  X  |"
-sleep 4
-echo -e "      |  Y  |"
+echo -e "      |  I  |"
 sleep 4
 echo -e "      |  N  |"
 sleep 4
-echo -e "      |  O  |"
+echo -e "      |  S  |"
 sleep 4
-echo -e "      |  D  |"
+echo -e "      |    |"
 sleep 4
-echo -e "      |  E  |"
+echo -e "      |     |"
+sleep 4
+echo -e "      |     |"
+sleep 4
+echo -e "      |     |"
 sleep 4
 echo -e "     /|##!##|\\"
 sleep 4
@@ -217,10 +224,13 @@ echo -e "       (( ))        ${GREEN} |               Relax                     
 sleep 4
 echo -e "        ( )"
 sleep 4
-echo -e "         ."
+echo -e "         .W^"
 sleep 4
-echo -e "         ."
+echo -e "         .I^"
 sleep 4
+echo -e "         .N^"
+sleep 4
+echo -e "         .^"
 echo -e "         ."
 }
   ### Start - First Run Configuration
@@ -283,7 +293,7 @@ echo -e "         ."
   case $choice in
     1) find_Masternodes ;;
     2) function_masternode_upgrade ;;
-    3) manager_XGSMasternodes;;
+    3) manager_WINMasternodes;;
     4) function_Donations ;;
     5) manager_maintenance ;;
     x) exit 0;;
@@ -324,8 +334,8 @@ echo -e "         ."
   nano ${COINHOME}${nodeunit}/${COINCORE}/${COINCONFIG}
   echo -e ${CLEAR}
   }
-  # manager_XGSMasternodes menu
-  manager_XGSMasternodes(){
+  # manager_WINMasternodes menu
+  manager_WINMasternodes(){
   clear
   echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo " Displaying Masternode Status"
@@ -336,10 +346,10 @@ echo -e "         ."
   echo -e "4 - Stop Masternode(s)"
   echo -e "5 - Re-Index Masternode(s)"
   echo -e "X - Exit"
-  read_manager_XGSMasternodes
+  read_manager_WINMasternodes
   }
-  # manager_XGSMasternodes read options
-  read_manager_XGSMasternodes(){
+  # manager_WINMasternodes read options
+  read_manager_WINMasternodes(){
   local choice
   read -p "Enter choice " choice
   case $choice in
@@ -913,20 +923,20 @@ echo -e "         ."
   local choice
   if [ -d /home/${COINl}${nodeunit} ]; then
     if [ -z ${nodeunit} ]; then
-    echo -e ${GREEN}"Found PRX-Oldnode Installation Found - /home/${COINl}" ${CLEAR}
+    echo -e ${GREEN}"Found WIN-Oldnode Installation Found - /home/${COINl}" ${CLEAR}
   else
-    echo -e ${GREEN}"Found PRX-${nodeunit} Installation Found - /home/${COINl}${nodeunit}" ${CLEAR}
+    echo -e ${GREEN}"Found WIN-${nodeunit} Installation Found - /home/${COINl}${nodeunit}" ${CLEAR}
   fi
-  ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} masternode status &> ${DPATH}XGSMN${nodeunit}.tmp
-    if grep -q "Hot node, waiting for remote activation" ${DPATH}XGSMN${nodeunit}.tmp; then
+  ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} masternode status &> ${DPATH}WINMN${nodeunit}.tmp
+    if grep -q "Hot node, waiting for remote activation" ${DPATH}WINMN${nodeunit}.tmp; then
       echo -e ${YELLOW} "Masternode Ready, waiting for activation from Wallet" ${CLEAR}
-    elif grep -q "Loading block index..." ${DPATH}XGSMN${nodeunit}.tmp; then
+    elif grep -q "Loading block index..." ${DPATH}WINMN${nodeunit}.tmp; then
     echo -e ${YELLOW} "Masternode is still loading block Index, please wait." ${CLEAR}
-    elif grep -q "Masternode successfully started" ${DPATH}XGSMN${nodeunit}.tmp; then
+    elif grep -q "Masternode successfully started" ${DPATH}WINMN${nodeunit}.tmp; then
       echo -e ${GREEN} "Masternode Successfully Started" ${CLEAR}
-    elif grep -q "Masternode not found in the list of available masternodes. Current status: Node just started, not yet activated" ${DPATH}XGSMN${nodeunit}.tmp; then
+    elif grep -q "Masternode not found in the list of available masternodes. Current status: Node just started, not yet activated" ${DPATH}WINMN${nodeunit}.tmp; then
       echo -e ${YELLOW} "Masternode is loading blocks, Please Wait " ${CLEAR}
-    elif grep -q "error: couldn't connect to server" ${DPATH}XGSMN${nodeunit}.tmp; then
+    elif grep -q "error: couldn't connect to server" ${DPATH}WINMN${nodeunit}.tmp; then
       echo -e ${RED} "Masternode not running, Please Start"
       echo
       echo -e ${GREEN} "Would you like to attempt to start the Masternode? (Y/N) "
@@ -949,8 +959,8 @@ echo -e "         ."
         fi
         rm -r /usr/local/nullentrydev/${nodeunit}.tmp
   #        echo "Running on IP : ${DISPIP}"
-  XGSOld="1"
-  XGS=$XGS+1
+  DEVOld="1"
+  DEV=$DEV+1
   #else
   #  if [ ! -z ${nodeunit} ]; then
   # echo -e ${RED}"No Installation Found for Masternode ${nodeunit} - /home/${COINl}${nodeunit}" ${CLEAR}
@@ -1080,8 +1090,8 @@ echo -e "         ."
   wget ${DOWNLOADCOINFILES}
   ${DECOMPRESS} ${COINFILES}
   sleep 3
-  sudo mv /root/${COIN3l}/Linux/bin/${COINDAEMON} /root/${COIN3l}/Linux/bin/${COINDAEMONCLI} /usr/local/bin
-  sudo chmod 755 -R  /usr/local/bin/prx*
+  sudo mv /root/${COIN3l}/twins-3.2.1/bin/${COINDAEMON} /root/${COIN3l}/twins-3.2.1/bin/${COINDAEMONCLI} /usr/local/bin
+  sudo chmod 755 -R  /usr/local/bin/dev*
   #rm -rf /root/${COIN3l}
   }
   ##Make Node configuration file
@@ -1159,8 +1169,6 @@ echo -e "         ."
   echo "addnode=$ADDNODE3" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "addnode=$ADDNODE4" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "addnode=$ADDNODE5" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  echo "datacarrier=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  echo "server=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   else
   echo "addnode=${MNIP1}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
 echo "addnode=159.69.71.209:52000" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1232,7 +1240,7 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   #node 1 sync check
   #select proper isblocked sync'd syntax
   #until ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} mnsync status | grep -m 1 'IsBlockchainSynced" : true'; do
-  until ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} mnsync status | grep -m 1 'IsBlockchainSynced" : true'; do
+  until ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} mnsync status | grep -m 1 'IsBlockchainSynced": true'; do
     ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} getblockcount
     sleep 5
   done
@@ -1241,17 +1249,15 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   ##End launch of first nodes
   ##Start of replicate nodes
   replicate_node(){
-    local nodedown
   echo -e "${GREEN}Haulting and Replicating First ${COIN} Node${CLEAR}"
   echo
   sleep 5
   cd /
   ${COINDAEMONCLI} -datadir=/home/${COINl}/${COINCORE} stop
   sleep 10
-  nodedown=$[$nodeunit-1]
-  sudo cp -r /home/${COINl}${nodedown}/.${COINl}${nodedown}/* /home/${COINl}${nodeunit}/.${COINl}/
-  sudo rm /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  sudo cp -r /home/${COINl}${nodeunit}/${COINCONFIG} /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+  sudo cp -r /home/${COINl}/.${COINl}/* /home/${COINl}2/.${COINl}/
+  sudo rm /home/${COINl}2/.${COINl}/${COINCONFIG}
+  sudo cp -r /home/${COINl}2/${COINCONFIG} /home/${COINl}2/.${COINl}/${COINCONFIG}
   sleep 5
   start_All_Nodes
   }
@@ -1336,10 +1342,14 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
     echo -e "Donations can be made to multiple addresses for multiple projects"
     echo
     echo -e ${BLUE}" Your patronage is apprappreciated, tipping addresses"${CLEAR}
-    echo -e ${BLUE}" PRX address: PRa4W66rUB8VN3wiynBwC7YYFc8fC6ywxQ"${CLEAR}
+    echo
     echo -e ${BLUE}" BGX address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
     echo -e ${BLUE}" BTC address: 32FzghE1yUZRdDmCkj3bJ6vJyXxUVPKY93"${CLEAR}
+    echo -e ${BLUE}" DEV address: daNLUws48T1N7cL51dkoT7auWeBhkmApfq"${CLEAR}
+    echo -e ${BLUE}" HSTC address: HVCPPtB4YFMggXQiFmZPy7vmuL6RAUVQyC"${CLEAR}
+    echo -e ${BLUE}" ICA address: iAAVTcoF14zQgVbUcoVASoRGDxWy3kYzRz"${CLEAR}
     echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
+    echo -e ${BLUE}" PRX address: PRa4W66rUB8VN3wiynBwC7YYFc8fC6ywxQ"${CLEAR}
     echo -e ${BLUE}" XGS address: GcToAa57WXPsVwXB9LKvui215AC3bsvneA"${CLEAR}
     echo
     echo -e ${YELLOW}"Need help?  Find Sburns1369#1584 one Discord - https://discord.gg/YhJ8v3g"${CLEAR}
@@ -1451,23 +1461,6 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   #test_pause
   rm -rf /root/${COIN3l}
   }
-  function_cannibal(){
-    if [ -d /home/${COINl}/.${COINl} ]; then
-      nodeunit=
-      stop_masternode
-      nodeunit=1
-      #function_user_add_check
-      #if [ ! -d /home/${COINl}1/.${COINl} ]; then
-      #  echo "Making /home/${COINl}1/.${COINl}"
-      #  sudo mkdir /home/${COINl}1/.${COINl}
-      #  sudo cp -r /home/${COINl}/.${COINl}/* /home/${COINl}1/.${COINl}/
-      #  start_masternode
-      sudo usermod --login proxynode1 --move-home -d --home  /home/proxynode proxynode
-      else
-        echo fatal error - here be dragons
-      fi
-  }
-
   # installation Core
   function_install(){
   function_swap_space
@@ -1488,7 +1481,7 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   clear
   null_logo
   #BitCoinGenX_Logo
-  ProxyNode_Logo
+  Deviant_Logo
   function_check_first_run
   function_first_nodecheck
   while true
