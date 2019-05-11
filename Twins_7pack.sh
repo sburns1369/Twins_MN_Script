@@ -50,6 +50,41 @@ else
 sudo adduser --system --home /home/twins2 twins2
 MN2=0
 fi
+if id "twins3" >/dev/null 2>&1; then
+echo -e ${YELLOW} "Found user twins3!"${CLEAR}
+MN3=1
+else
+sudo adduser --system --home /home/twins3 twins3
+MN3=0
+fi
+if id "twins4" >/dev/null 2>&1; then
+echo -e ${YELLOW} "Found user twins4!"${CLEAR}
+MN4=1
+else
+sudo adduser --system --home /home/twins4 twins4
+MN4=0
+fi
+if id "twins5" >/dev/null 2>&1; then
+echo -e ${YELLOW} "Found user twins5!"${CLEAR}
+MN5=1
+else
+sudo adduser --system --home /home/twins5 twins5
+MN5=0
+fi
+if id "twins6" >/dev/null 2>&1; then
+echo -e ${YELLOW} "Found user twins6!"${CLEAR}
+MN6=1
+else
+sudo adduser --system --home /home/twins6 twins6
+MN6=0
+fi
+if id "twins7" >/dev/null 2>&1; then
+echo -e ${YELLOW} "Found user twins7!"${CLEAR}
+MN7=1
+else
+sudo adduser --system --home /home/twins7 twins7
+MN7=0
+fi
 echo
 echo
 echo
@@ -76,6 +111,41 @@ read MNKEY2
 echo
 else
 echo -e ${YELLOW}"Skipping Second Masternode Key"${CLEAR}
+fi
+if [[ "$MN3" -eq "0" ]]; then
+echo -e ${GREEN}"Please Enter Your Third Masternode Private Key:"${CLEAR}
+read MNKEY3
+echo
+else
+echo -e ${YELLOW}"Skipping Third Masternode Key"${CLEAR}
+fi
+if [[ "$MN4" -eq "0" ]]; then
+echo -e ${GREEN}"Please Enter Your Fourth Masternode Private Key:"${CLEAR}
+read MNKEY4
+echo
+else
+echo -e ${YELLOW}"Skipping Fourth Masternode Key"${CLEAR}
+fi
+if [[ "$MN5" -eq "0" ]]; then
+echo -e ${GREEN}"Please Enter Your Fifth Masternode Private Key:"${CLEAR}
+read MNKEY5
+echo
+else
+echo -e ${YELLOW}"Skipping Fifth Masternode Key"${CLEAR}
+fi
+if [[ "$MN6" -eq "0" ]]; then
+echo -e ${GREEN}"Please Enter Your Sixth Masternode Private Key:"${CLEAR}
+read MNKEY6
+echo
+else
+echo -e ${YELLOW}"Skipping Sixth Masternode Key"${CLEAR}
+fi
+if [[ "$MN7" -eq "0" ]]; then
+echo -e ${GREEN}"Please Enter Your Seventh Masternode Private Key:"${CLEAR}
+read MNKEY7
+echo
+else
+echo -e ${YELLOW}"Skipping Seventh Masternode Key"${CLEAR}
 fi
 cd ~
 if [[ $NULLREC = "y" ]] ; then
@@ -134,6 +204,16 @@ echo -e ${GREEN}"IP for Masternode 1"${CLEAR}
 read MNIP1
 echo -e ${GREEN}"IP for Masternode 2"${CLEAR}
 read MNIP2
+echo -e ${GREEN}"IP for Masternode 3"${CLEAR}
+read MNIP3
+echo -e ${GREEN}"IP for Masternode 4"${CLEAR}
+read MNIP4
+echo -e ${GREEN}"IP for Masternode 5"${CLEAR}
+read MNIP5
+echo -e ${GREEN}"IP for Masternode 6"${CLEAR}
+read MNIP6
+echo -e ${GREEN}"IP for Masternode 7"${CLEAR}
+read MNIP7
 else
 regex='^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$'
 FINDIP=$(hostname -I | cut -f2 -d' '| cut -f1-7 -d:)
@@ -168,6 +248,11 @@ sudo touch ip.tmp
 for i in {15361..15375}; do printf "${IP}:%.4x\n" $i >> ip.tmp; done
 MNIP1=$(hostname -I | cut -f1 -d' ')
 MNIP2=$(sed -n '2p' < ip.tmp)
+MNIP3=$(sed -n '3p' < ip.tmp)
+MNIP4=$(sed -n '4p' < ip.tmp)
+MNIP5=$(sed -n '5p' < ip.tmp)
+MNIP6=$(sed -n '6p' < ip.tmp)
+MNIP7=$(sed -n '7p' < ip.tmp)
 rm -rf ip.tmp
 fi
 if grep -Fxq "swapInstalled: true" /usr/local/nullentrydev/mnodes.log
@@ -250,7 +335,6 @@ echo "Downloading latest Twins binaries"
 wget https://github.com/NewCapital/TWINS-Core/releases/download/twins_v3.2.1.0/twins-3.2.1.0-x86_64-linux-gnu.tar.gz
 tar -xvzf twins-3.2.1.0-x86_64-linux-gnu.tar.gz
 sleep 3
-##update here
 sudo mv /root/twins/twins-3.2.1/bin/twinsd /root/twins/twins-3.2.1/bin/twins-cli /usr/local/bin
 sudo chmod 755 -R /usr/local/bin/twins*
 rm -rf /root/twins
@@ -324,13 +408,175 @@ echo -e ${YELLOW}"Found /home/twins2/.twins/twins.conf"${CLEAR}
 echo -e ${YELLOW}"Skipping Configuration for Second Node"${CLEAR}
 fi
 echo
+if [ ! -f /home/twins3/.twins/twins.conf ]; then
+if [ ! -f /home/twins3/twins.conf ]; then
+echo -e "${GREEN}Third Twins Node Configuration Not Found....${CLEAR}"
+echo -e "${GREEN}Configuring Third Twins Node${CLEAR}"
+sudo mkdir /home/twins3/.twins
+sudo touch /home/twins3/twins.conf
+echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/twins3/twins.conf
+echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/twins3/twins.conf
+echo "rpcallowip=127.0.0.1" >> /home/twins3/twins.conf
+echo "server=1" >> /home/twins3/twins.conf
+echo "daemon=1" >> /home/twins3/twins.conf
+echo "maxconnections=250" >> /home/twins3/twins.conf
+echo "masternode=1" >> /home/twins3/twins.conf
+echo "rpcport=13298" >> /home/twins3/twins.conf
+echo "listen=0" >> /home/twins3/twins.conf
+echo "externalip=[${MNIP3}]:37817" >> /home/twins3/twins.conf
+echo "masternodeprivkey=$MNKEY3" >> /home/twins3/twins.conf
+if [[ $NULLREC = "y" ]] ; then
+echo "masterNode3 : true" >> /usr/local/nullentrydev/twins.log
+echo "walletVersion3 : 3.2.1" >> /usr/local/nullentrydev/twins.log
+echo "scriptVersion3 : 0.99" >> /usr/local/nullentrydev/twins.log
+fi
+else
+echo -e ${YELLOW}"Found /home/twins3/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Pre-stage for Third Node "${CLEAR}
+MN3=0
+fi
+echo
+else
+echo -e ${YELLOW}"Found /home/twins3/.twins/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Configuration for Third Node"${CLEAR}
+fi
+echo
+if [ ! -f /home/twins4/.twins/twins.conf ]; then
+if [ ! -f /home/twins4/twins.conf ]; then
+echo -e "${GREEN}Fourth Twins Node Configuration Not Found....${CLEAR}"
+echo -e "${GREEN}Configuring Fourth Twins Node${CLEAR}"
+sudo mkdir /home/twins4/.twins
+sudo touch /home/twins4/twins.conf
+echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/twins4/twins.conf
+echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/twins4/twins.conf
+echo "rpcallowip=127.0.0.1" >> /home/twins4/twins.conf
+echo "server=1" >> /home/twins4/twins.conf
+echo "daemon=1" >> /home/twins4/twins.conf
+echo "maxconnections=250" >> /home/twins4/twins.conf
+echo "masternode=1" >> /home/twins4/twins.conf
+echo "rpcport=13299" >> /home/twins4/twins.conf
+echo "listen=0" >> /home/twins4/twins.conf
+echo "externalip=[${MNIP4}]:37817" >> /home/twins4/twins.conf
+echo "masternodeprivkey=$MNKEY4" >> /home/twins4/twins.conf
+if [[ $NULLREC = "y" ]] ; then
+echo "masterNode4 : true" >> /usr/local/nullentrydev/twins.log
+echo "walletVersion4 : 3.2.1" >> /usr/local/nullentrydev/twins.log
+echo "scriptVersion4 : 0.99" >> /usr/local/nullentrydev/twins.log
+fi
+else
+echo
+echo -e ${YELLOW}"Found /home/twins4/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Pre-stage for Fourth Node "${CLEAR}
+MN4=0
+fi
+else
+echo -e ${YELLOW}"Found /home/twins4/.twins/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Configuration for Fourth Node"${CLEAR}
+fi
+if [ ! -f /home/twins5/.twins/twins.conf ]; then
+if [ ! -f /home/twins5/twins.conf ]; then
+echo -e "${GREEN}Fifth Twins Node Configuration Not Found....${CLEAR}"
+echo -e "${GREEN}Configuring Fifth Twins Node${CLEAR}"
+sudo mkdir /home/twins5/.twins
+sudo touch /home/twins5/twins.conf
+echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/twins5/twins.conf
+echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/twins5/twins.conf
+echo "rpcallowip=127.0.0.1" >> /home/twins5/twins.conf
+echo "server=1" >> /home/twins5/twins.conf
+echo "daemon=1" >> /home/twins5/twins.conf
+echo "maxconnections=250" >> /home/twins5/twins.conf
+echo "masternode=1" >> /home/twins5/twins.conf
+echo "rpcport=13300" >> /home/twins5/twins.conf
+echo "listen=0" >> /home/twins5/twins.conf
+echo "externalip=[${MNIP5}]:37817" >> /home/twins5/twins.conf
+echo "masternodeprivkey=$MNKEY5" >> /home/twins5/twins.conf
+if [[ $NULLREC = "y" ]] ; then
+echo "masterNode5 : true" >> /usr/local/nullentrydev/twins.log
+echo "walletVersion5 : 3.2.1" >> /usr/local/nullentrydev/twins.log
+echo "scriptVersion5 : 0.99" >> /usr/local/nullentrydev/twins.log
+fi
+else
+echo
+echo -e ${YELLOW}"Found /home/twins5/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Pre-stage for Fifth Node "${CLEAR}
+MN5=0
+fi
+else
+echo -e ${YELLOW}"Found /home/twins5/.twins/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Configuration for Fifth Node"${CLEAR}
+fi
+if [ ! -f /home/twins6/.twins/twins.conf ]; then
+if [ ! -f /home/twins6/twins.conf ]; then
+echo -e "${GREEN}Sixth Twins Node Configuration Not Found....${CLEAR}"
+echo -e "${YELLOW}Configuring Sixth Twins Node${CLEAR}"
+sudo mkdir /home/twins6/.twins
+sudo touch /home/twins6/twins.conf
+echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/twins6/twins.conf
+echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/twins6/twins.conf
+echo "rpcallowip=127.0.0.1" >> /home/twins6/twins.conf
+echo "server=1" >> /home/twins6/twins.conf
+echo "daemon=1" >> /home/twins6/twins.conf
+echo "maxconnections=250" >> /home/twins6/twins.conf
+echo "masternode=1" >> /home/twins6/twins.conf
+echo "rpcport=13301" >> /home/twins6/twins.conf
+echo "listen=0" >> /home/twins6/twins.conf
+echo "externalip=[${MNIP6}]:37817" >> /home/twins6/twins.conf
+echo "masternodeprivkey=$MNKEY6" >> /home/twins6/twins.conf
+if [[ $NULLREC = "y" ]] ; then
+echo "masterNode6 : true" >> /usr/local/nullentrydev/twins.log
+echo "walletVersion6 : 3.2.1" >> /usr/local/nullentrydev/twins.log
+echo "scriptVersion6 : 0.99" >> /usr/local/nullentrydev/twins.log
+fi
+else
+echo
+echo -e ${YELLOW}"Found /home/twins6/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Pre-stage for Sixth Node "${CLEAR}
+MN6=0
+fi
+else
+echo -e ${YELLOW}"Found /home/twins6/.twins/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Configuration for Sixth Node"${CLEAR}
+fi
+echo
+if [ ! -f /home/twins7/.twins/twins.conf ]; then
+if [ ! -f /home/twins7/twins.conf ]; then
+echo -e "${GREEN}Seventh Twins Node Configuration Not Found....${CLEAR}"
+echo -e "${YELLOW}Configuring Seventh Twins Node${CLEAR}"
+sudo mkdir /home/twins7/.twins
+sudo touch /home/twins7/twins.conf
+echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/twins7/twins.conf
+echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/twins7/twins.conf
+echo "rpcallowip=127.0.0.1" >> /home/twins7/twins.conf
+echo "server=1" >> /home/twins7/twins.conf
+echo "daemon=1" >> /home/twins7/twins.conf
+echo "maxconnections=250" >> /home/twins7/twins.conf
+echo "masternode=1" >> /home/twins7/twins.conf
+echo "rpcport=13302" >> /home/twins7/twins.conf
+echo "listen=0" >> /home/twins7/twins.conf
+echo "externalip=[${MNIP7}]:37817" >> /home/twins7/twins.conf
+echo "masternodeprivkey=$MNKEY7" >> /home/twins7/twins.conf
+if [[ $NULLREC = "y" ]] ; then
+echo "masterNode7 : true" >> /usr/local/nullentrydev/twins.log
+echo "walletVersion7 : 3.2.1" >> /usr/local/nullentrydev/twins.log
+echo "scriptVersion7 : 0.99" >> /usr/local/nullentrydev/twins.log
+fi
+else
+echo
+echo -e ${YELLOW}"Found /home/twins7/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Pre-stage for Seventh Node "${CLEAR}
+MN7=0
+fi
+else
+echo -e ${YELLOW}"Found /home/twins7/.twins/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Configuration for Seventh Node"${CLEAR}
+fi
+echo
 echo -e "${RED}This process can take a while!${CLEAR}"
 echo -e "${YELLOW}Waiting on First Masternode Block Chain to Synchronize${CLEAR}"
 echo -e "${YELLOW}Once complete, it will stop and copy the block chain to${CLEAR}"
 echo -e "${YELLOW}the other masternodes. This prevent all masternodes${CLEAR}"
 echo -e "${YELLOW}from downloading the block chain individually; taking up${CLEAR}"
 echo -e "${YELLOW}more time and resources. Current Block count will be displayed below.${CLEAR}"
-#change
 until twins-cli -datadir=/home/twins1/.twins mnsync status | grep -m 1 'IsBlockchainSynced": true'; do
 twins-cli -datadir=/home/twins1/.twins getblockcount
 sleep 60
@@ -345,11 +591,56 @@ rm /home/twins2/.twins/twins.conf
 cp -r /home/twins2/twins.conf /home/twins2/.twins/twins.conf
 sleep 1
 fi
+if [[ "$MN3" -eq "0" ]]; then
+sudo cp -r /home/twins1/.twins/* /home/twins3/.twins
+rm /home/twins3/.twins/twins.conf
+cp -r /home/twins3/twins.conf /home/twins3/.twins/twins.conf
+sleep 1
+fi
+if [[ "$MN4" -eq "0" ]]; then
+sudo cp -r /home/twins1/.twins/* /home/twins4/.twins
+rm /home/twins4/.twins/twins.conf
+cp -r /home/twins4/twins.conf /home/twins4/.twins/twins.conf
+sleep 1
+fi
+if [[ "$MN5" -eq "0" ]]; then
+sudo cp -r /home/twins1/.twins/* /home/twins5/.twins
+rm /home/twins5/.twins/twins.conf
+cp -r /home/twins5/twins.conf /home/twins5/.twins/twins.conf
+sleep 1
+fi
+if [[ "$MN6" -eq "0" ]]; then
+sudo cp -r /home/twins1/.twins/* /home/twins6/.twins
+rm /home/twins6/.twins/twins.conf
+cp -r /home/twins6/twins.conf /home/twins6/.twins/twins.conf
+sleep 1
+fi
+if [[ "$MN7" -eq "0" ]]; then
+sudo cp -r /home/twins1/.twins/* /home/twins7/.twins
+rm /home/twins7/.twins/twins.conf
+cp -r /home/twins7/twins.conf /home/twins7/.twins/twins.conf
+sleep 1
+fi
 echo -e ${YELLOW}"Launching First Twins Node"${CLEAR}
 twinsd -datadir=/home/twins1/.twins -daemon
 sleep 20
 echo -e ${YELLOW}"Launching Second Twins Node"${CLEAR}
 twinsd -datadir=/home/twins2/.twins -daemon
+sleep 20
+echo -e ${YELLOW}"Launching Third Twins Node"${CLEAR}
+twinsd -datadir=/home/twins3/.twins -daemon
+sleep 20
+echo -e ${YELLOW}"Launching Fourth Twins Node"${CLEAR}
+twinsd -datadir=/home/twins4/.twins -daemon
+sleep 20
+echo -e ${YELLOW}"Launching Fifth Twins Node"${CLEAR}
+twinsd -datadir=/home/twins5/.twins -daemon
+sleep 20
+echo -e ${YELLOW}"Launching Sixth Twins Node"${CLEAR}
+twinsd -datadir=/home/twins6/.twins -daemon
+sleep 20
+echo -e ${YELLOW}"Launching Seventh Twins Node"${CLEAR}
+twinsd -datadir=/home/twins7/.twins -daemon
 sleep 20
 echo -e ${BOLD}"All ${NODESN} Twins Nodes Launched".${CLEAR}
 echo
@@ -357,11 +648,21 @@ echo
 echo -e "${GREEN}You can check the status of your Twins Masternode with"${CLEAR}
 echo -e "${YELLOW}For mn1: \"twins-cli -datadir=/home/twins1/.twins masternode status\""${CLEAR}
 echo -e "${YELLOW}For mn2: \"twins-cli -datadir=/home/twins2/.twins masternode status\""${CLEAR}
+echo -e "${YELLOW}For mn3: \"twins-cli -datadir=/home/twins3/.twins masternode status\""${CLEAR}
+echo -e "${YELLOW}For mn4: \"twins-cli -datadir=/home/twins4/.twins masternode status\""${CLEAR}
+echo -e "${YELLOW}For mn5: \"twins-cli -datadir=/home/twins5/.twins masternode status\""${CLEAR}
+echo -e "${YELLOW}For mn6: \"twins-cli -datadir=/home/twins6/.twins masternode status\""${CLEAR}
+echo -e "${YELLOW}For mn7: \"twins-cli -datadir=/home/twins7/.twins masternode status\""${CLEAR}
 echo
 echo -e "${RED}Status 29 may take a few minutes to clear while the daemon processes the chainstate"${CLEAR}
 echo -e "${GREEN}The data below needs to be in your local masternode configuration file:${CLEAR}"
 echo -e "${BOLD} Masternode - \#1 IP: ${MNIP1}:37817${CLEAR}"
 echo -e "${BOLD} Masternode - \#2 IP: [${MNIP2}]:37817${CLEAR}"
+echo -e "${BOLD} Masternode - \#3 IP: [${MNIP3}]:37817${CLEAR}"
+echo -e "${BOLD} Masternode - \#4 IP: [${MNIP4}]:37817${CLEAR}"
+echo -e "${BOLD} Masternode - \#5 IP: [${MNIP5}]:37817${CLEAR}"
+echo -e "${BOLD} Masternode - \#6 IP: [${MNIP6}]:37817${CLEAR}"
+echo -e "${BOLD} Masternode - \#7 IP: [${MNIP7}]:37817${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
 echo -e ${BLUE}" Twins address: insertwallet"${CLEAR}
