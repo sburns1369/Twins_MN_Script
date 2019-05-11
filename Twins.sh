@@ -1457,7 +1457,7 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   fi
   #add check before downloading
   sudo apt-get install unrar
-  unrar x bootstrap.rar /home/${COINl}1/.${COINl}
+  unrar x rocketstrap.rar /home/${COINl}1/.${COINl}
   #test_pause
   rm -rf /root/${COIN3l}
   }
