@@ -8,7 +8,7 @@ RED='\033[0;91m'
 YELLOW='\033[0;93m'
 CLEAR='\033[0m'
 if [[ $(lsb_release -d) != *16.04* ]]; then
-"echo -e ${RED}"The operating system is not Ubuntu 16.04. You must be running on ubuntu 16.04."${CLEAR}"
+echo -e ${RED}"The operating system is not Ubuntu 16.04. You must be running on ubuntu 16.04."${CLEAR}
 exit 1
 fi
 echo
@@ -85,6 +85,13 @@ else
 sudo adduser --system --home /home/twins7 twins7
 MN7=0
 fi
+if id "twins8" >/dev/null 2>&1; then
+echo -e ${YELLOW} "Found user twins8!"${CLEAR}
+MN8=1
+else
+sudo adduser --system --home /home/twins8 twins8
+MN8=0
+fi
 echo
 echo
 echo
@@ -146,6 +153,13 @@ read MNKEY7
 echo
 else
 echo -e ${YELLOW}"Skipping Seventh Masternode Key"${CLEAR}
+fi
+if [[ "$MN8" -eq "0" ]]; then
+echo -e ${GREEN}"Please Enter Your Eigth Masternode Private Key:"${CLEAR}
+read MNKEY8
+echo
+else
+echo -e ${YELLOW}"Skipping Eigth Masternode Key"${CLEAR}
 fi
 cd ~
 if [[ $NULLREC = "y" ]] ; then
@@ -214,6 +228,8 @@ echo -e ${GREEN}"IP for Masternode 6"${CLEAR}
 read MNIP6
 echo -e ${GREEN}"IP for Masternode 7"${CLEAR}
 read MNIP7
+echo -e ${GREEN}"IP for Masternode 8"${CLEAR}
+read MNIP8
 else
 regex='^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$'
 FINDIP=$(hostname -I | cut -f2 -d' '| cut -f1-7 -d:)
@@ -253,6 +269,7 @@ MNIP4=$(sed -n '4p' < ip.tmp)
 MNIP5=$(sed -n '5p' < ip.tmp)
 MNIP6=$(sed -n '6p' < ip.tmp)
 MNIP7=$(sed -n '7p' < ip.tmp)
+MNIP8=$(sed -n '8p' < ip.tmp)
 rm -rf ip.tmp
 fi
 if grep -Fxq "swapInstalled: true" /usr/local/nullentrydev/mnodes.log
@@ -335,7 +352,7 @@ echo "Downloading latest Twins binaries"
 wget https://github.com/NewCapital/TWINS-Core/releases/download/twins_v3.2.1.0/twins-3.2.1.0-x86_64-linux-gnu.tar.gz
 tar -xvzf twins-3.2.1.0-x86_64-linux-gnu.tar.gz
 sleep 3
-sudo mv /root/twins/twins-3.2.1/bin/twinsd /root/twins/twins-3.2.1/bin/twins-cli /usr/local/bin
+sudo mv /root/twins/twinsd /root/twins/twins-cli /usr/local/bin
 sudo chmod 755 -R /usr/local/bin/twins*
 rm -rf /root/twins
 if [ ! -f /home/twins1/.twins/twins.conf ]; then
@@ -571,6 +588,39 @@ echo -e ${YELLOW}"Found /home/twins7/.twins/twins.conf"${CLEAR}
 echo -e ${YELLOW}"Skipping Configuration for Seventh Node"${CLEAR}
 fi
 echo
+if [ ! -f /home/twins8/.twins/twins.conf ]; then
+if [ ! -f /home/twins8/twins.conf ]; then
+echo -e "${GREEN}Eigth Twins Node Configuration Not Found....${CLEAR}"
+echo -e "${YELLOW}Configuring Eigth Twins Node${CLEAR}"
+sudo mkdir /home/twins8/.twins
+sudo touch /home/twins8/twins.conf
+echo "rpcuser=user"`shuf -i 100000-9999999 -n 1` >> /home/twins8/twins.conf
+echo "rpcpassword=pass"`shuf -i 100000-9999999 -n 1` >> /home/twins8/twins.conf
+echo "rpcallowip=127.0.0.1" >> /home/twins8/twins.conf
+echo "server=1" >> /home/twins8/twins.conf
+echo "daemon=1" >> /home/twins8/twins.conf
+echo "maxconnections=250" >> /home/twins8/twins.conf
+echo "masternode=1" >> /home/twins8/twins.conf
+echo "rpcport=13303" >> /home/twins8/twins.conf
+echo "listen=0" >> /home/twins8/twins.conf
+echo "externalip=[${MNIP8}]:37817" >> /home/twins8/twins.conf
+echo "masternodeprivkey=$MNKEY8" >> /home/twins8/twins.conf
+if [[ $NULLREC = "y" ]] ; then
+echo "masterNode8 : true" >> /usr/local/nullentrydev/twins.log
+echo "walletVersion8 : 3.2.1" >> /usr/local/nullentrydev/twins.log
+echo "scriptVersion8 : 0.99" >> /usr/local/nullentrydev/twins.log
+fi
+else
+echo
+echo -e ${YELLOW}"Found /home/twins8/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Pre-stage for Eigth Node "${CLEAR}
+MN8=0
+fi
+else
+echo -e ${YELLOW}"Found /home/twins8/.twins/twins.conf"${CLEAR}
+echo -e ${YELLOW}"Skipping Configuration for Eigth Node"${CLEAR}
+fi
+echo
 echo -e "${RED}This process can take a while!${CLEAR}"
 echo -e "${YELLOW}Waiting on First Masternode Block Chain to Synchronize${CLEAR}"
 echo -e "${YELLOW}Once complete, it will stop and copy the block chain to${CLEAR}"
@@ -621,6 +671,12 @@ rm /home/twins7/.twins/twins.conf
 cp -r /home/twins7/twins.conf /home/twins7/.twins/twins.conf
 sleep 1
 fi
+if [[ "$MN8" -eq "0" ]]; then
+sudo cp -r /home/twins1/.twins/* /home/twins8/.twins
+rm /home/twins8/.twins/twins.conf
+cp -r /home/twins8/twins.conf /home/twins8/.twins/twins.conf
+sleep 1
+fi
 echo -e ${YELLOW}"Launching First Twins Node"${CLEAR}
 twinsd -datadir=/home/twins1/.twins -daemon
 sleep 20
@@ -642,6 +698,9 @@ sleep 20
 echo -e ${YELLOW}"Launching Seventh Twins Node"${CLEAR}
 twinsd -datadir=/home/twins7/.twins -daemon
 sleep 20
+echo -e ${YELLOW}"Launching Eigth Twins Node"${CLEAR}
+twinsd -datadir=/home/twins8/.twins -daemon
+sleep 20
 echo -e ${BOLD}"All ${NODESN} Twins Nodes Launched".${CLEAR}
 echo
 
@@ -653,6 +712,7 @@ echo -e "${YELLOW}For mn4: \"twins-cli -datadir=/home/twins4/.twins masternode s
 echo -e "${YELLOW}For mn5: \"twins-cli -datadir=/home/twins5/.twins masternode status\""${CLEAR}
 echo -e "${YELLOW}For mn6: \"twins-cli -datadir=/home/twins6/.twins masternode status\""${CLEAR}
 echo -e "${YELLOW}For mn7: \"twins-cli -datadir=/home/twins7/.twins masternode status\""${CLEAR}
+echo -e "${YELLOW}For mn8: \"twins-cli -datadir=/home/twins8/.twins masternode status\""${CLEAR}
 echo
 echo -e "${RED}Status 29 may take a few minutes to clear while the daemon processes the chainstate"${CLEAR}
 echo -e "${GREEN}The data below needs to be in your local masternode configuration file:${CLEAR}"
@@ -663,6 +723,7 @@ echo -e "${BOLD} Masternode - \#4 IP: [${MNIP4}]:37817${CLEAR}"
 echo -e "${BOLD} Masternode - \#5 IP: [${MNIP5}]:37817${CLEAR}"
 echo -e "${BOLD} Masternode - \#6 IP: [${MNIP6}]:37817${CLEAR}"
 echo -e "${BOLD} Masternode - \#7 IP: [${MNIP7}]:37817${CLEAR}"
+echo -e "${BOLD} Masternode - \#8 IP: [${MNIP8}]:37817${CLEAR}"
 fi
 echo -e ${BLUE}" Your patronage is appreciated, tipping addresses"${CLEAR}
 echo -e ${BLUE}" Twins address: WTXakU15hxA9Q5yXMNacMPFAayovMNot69"${CLEAR}
