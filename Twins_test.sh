@@ -1260,7 +1260,7 @@ Function_Masternode_Key_Check(){
   Function_Build_Masternode_Key_Table(){
     local count
     echo -e ${YELLOW} "Building Masternode Keys Table"${CLEAR}
-    Echo -e ${RED}"This Will take a moment"${CLEAR}
+    echo -e ${RED}"This Will take a moment"${CLEAR}
     nodeunit=1
     Function_Start_Masternode
     sleep 20
@@ -1268,8 +1268,9 @@ Function_Masternode_Key_Check(){
     echo \#If editing IP Table list them below.  Starting from masternode 1 to 10 > ${DPATH}mnkey.tbl
     echo \Masternode needs to be rebuilt in order for these to take effect >> ${DPATH}mnkey.tbl
     echo \#unless keys are entered in configuration directly.  >> ${DPATH}mnkey.tbl
+    count=0
     until [[ count = 10 ]]; do
-    ${COINDAEMONCLI} -datadir=/home/${COINl} masternode genkey >> ${DPATH}mnkey.tbl
+    ${COINDAEMONCLI} -datadir=/home/${COINl}1/.${COINl} masternode genkey >> ${DPATH}mnkey.tbl
     count=$[$count+1]
     done
     }
