@@ -966,8 +966,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo "rpcuser=u3er"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcpassword=pa55"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcallowip=127.0.0.1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  Function_IP_Table_Check
-  Function_Masternode_Key_Check
+  #Function_IP_Table_Check
+  #Function_Masternode_Key_Check
   echo "server=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "daemon=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "maxconnections=250" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
