@@ -80,6 +80,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
 pause
 }
 #twins_Logo
+pause
+
 Function_Display_Twins_Logo(){
   bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/logo.sh)
   pause
@@ -94,8 +96,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if grep -Fxq "firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
     then
       echo "Not First Run - Testing Check Point"
-      #pause
+      Test_Pause
     else
+  Test_Pause
   bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/welcome.sh)
   read  -p "Enter choice : " NULLREC
   case $NULLREC in
@@ -440,9 +443,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   #start Edit Masternode Status Menu
   Edit_MN_Status(){
   clear
-  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo "   Edit Masternode Configuration"
-  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo "      Edit Masternode Configuration"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   if [ -d /home/${COINl} ]; then
   echo -e "L - Legacy Masternode One Status"
   fi
@@ -483,9 +486,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   #stop_masternodes_Menu
   manager_stop_Masternodes(){
   clear
-  echo "~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo "   stop Masternode(s)"
-  echo "~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo "          Stop Masternode(s)"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   if [ -d /home/${COINl} ]; then
   echo -e "L - Legacy Masternode One Status"
   fi
@@ -628,11 +631,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   }
   display_MN_Status(){
   clear
-  echo "~~~~~~~~~~~~~~~~~~~~~"
-  echo "   Displaying display_MN_Status"
-  echo "~~~~~~~~~~~~~~~~~~~~~"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo "      Displaying Masternode Status"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   if [ -d /home/${COINl} ]; then
-  echo -e "L - Legacy Masternode One Status"
+  echo -e "L - Legacy Masternode"
   fi
   if [ -d /home/${COINl}1 ]; then
   echo -e "1 - Masternode One"
@@ -966,8 +969,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo "rpcuser=u3er"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcpassword=pa55"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcallowip=127.0.0.1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  #Function_IP_Table_Check
-  #Function_Masternode_Key_Check
+  Function_IP_Table_Check
+  Function_Masternode_Key_Check
   echo "server=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "daemon=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "maxconnections=250" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1105,7 +1108,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   function_masternode_upgrade(){
     clear
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo "   How Many Masternode Do you want to Run?"
+    echo "  How Many Masternode Do you want to Run?"
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo -e "1 - One Masternode"
     echo -e "2 - Masternode Two"
@@ -1117,11 +1120,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     echo -e "8 - Masternode Eight"
     echo -e "B - Back out of Menu"
     echo -e "X - Exit"
-    function_read_masternode_upgrade
+    Function_Read_Masternode_Upgrade
   }
   #end function_menu_Reindex_Masternodes
   #start - read Start Masternodes Menu
-  function_read_masternode_upgrade(){
+  Function_Read_Masternode_Upgrade(){
     local choice
     read -p "Enter choice " choice
     case $choice in
@@ -1155,28 +1158,18 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   }
   function_Donations(){
   #attempt to move legacy masternode
-    clear
-    echo
-    echo
-    echo
-    echo -e "Donations can be made to multiple addresses for multiple projects"
-    echo
-    echo -e ${BLUE}" Your patronage is apprappreciated, tipping addresses"${CLEAR}
-    echo
-    echo -e ${BLUE}" BGX address: BayScFpFgPBiDU1XxdvozJYVzM2BQvNFgM"${CLEAR}
-    echo -e ${BLUE}" BTC address: 32FzghE1yUZRdDmCkj3bJ6vJyXxUVPKY93"${CLEAR}
-    echo -e ${BLUE}" DEV address: daNLUws48T1N7cL51dkoT7auWeBhkmApfq"${CLEAR}
-    echo -e ${BLUE}" HSTC address: HVCPPtB4YFMggXQiFmZPy7vmuL6RAUVQyC"${CLEAR}
-    echo -e ${BLUE}" ICA address: iAAVTcoF14zQgVbUcoVASoRGDxWy3kYzRz"${CLEAR}
-    echo -e ${BLUE}" LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H"${CLEAR}
-    echo -e ${BLUE}" PRX address: PRa4W66rUB8VN3wiynBwC7YYFc8fC6ywxQ"${CLEAR}
-    echo -e ${BLUE}" Twins address: WTXakU15hxA9Q5yXMNacMPFAayovMNot69"${CLEAR}
-    echo -e ${BLUE}" XGS address: GcToAa57WXPsVwXB9LKvui215AC3bsvneA"${CLEAR}
-    echo
-    echo -e ${YELLOW}"Need help?  Find Sburns1369#1584 one Discord - https://discord.gg/YhJ8v3g"${CLEAR}
+    bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/donations.sh)
     pause
   }
-  function_build_IP(){
+Function_IP_Table_Check(){
+    if [ ! -d ${DPATH}ip.tbl ]; then
+      Function_Build_IP_Table
+      Function_Read_IP_Table
+    else
+      Function_Read_IP_Table
+    fi
+}
+Function_Build_IP_Table(){
   if [[ customIP = "y" ]] ; then
   echo -e ${GREEN}"IP for Masternode 1"${CLEAR}
   read MNIP1
@@ -1234,6 +1227,12 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo \#unless IPs are entered in configuration directly.  >> ${DPATH}ip.tbl
   echo $(hostname -I | cut -f1 -d' ') >> ${DPATH}ip.tbl
   for i in {15362..15372}; do printf "${IP}:%.4x\n" $i >> ${DPATH}ip.tbl; done
+  fi
+}
+#Reads IP Table for Masternodes; Storage Needed for Building & Adding Additional masternodes
+#As well as Masternode.conf Display
+  Function_Read_IP_Table(){
+  cd ~
   MNIP1=$(sed -n '4p' < ${DPATH}ip.tbl)
   MNIP2=$(sed -n '5p' < ${DPATH}ip.tbl)
   MNIP3=$(sed -n '6p' < ${DPATH}ip.tbl)
@@ -1244,19 +1243,39 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   MNIP8=$(sed -n '11p' < ${DPATH}ip.tbl)
   MNIP9=$(sed -n '12p' < ${DPATH}ip.tbl)
   MNIP10=$(sed -n '13p' < ${DPATH}ip.tbl)
-  fi
   }
+
   build_first_node(){
   function_update
   }
 #not used yet, testing
-  function_buildGenkeys(){
+Function_Masternode_Key_Check(){
+  if [ ! -d ${DPATH}mnkey.tbl ]; then
+    Function_Build_Masternode_Key_Table
+    Function_Read_Masternode_Key_Table
+  else
+    Function_Read_Masternode_Key_Table
+  fi
+}
+  Function_Build_Masternode_Key_Table(){
+    local count
     echo -e ${YELLOW} "Building Masternode Keys Table"${CLEAR}
+    Echo -e ${RED}"This Will take a moment"${CLEAR}
+    nodeunit=1
+    Function_Start_Masternode
+    sleep 20
     sudo touch ${DPATH}mnkey.tbl
     echo \#If editing IP Table list them below.  Starting from masternode 1 to 10 > ${DPATH}mnkey.tbl
     echo \Masternode needs to be rebuilt in order for these to take effect >> ${DPATH}mnkey.tbl
     echo \#unless keys are entered in configuration directly.  >> ${DPATH}mnkey.tbl
-    #loop masternode genkey 10 times into file
+    until [[ count = 10 ]]; do
+    ${COINDAEMONCLI} -datadir=/home/${COINl} masternode genkey >> ${DPATH}mnkey.tbl
+    count=$[$count+1]
+    done
+    }
+
+Function_Read_Masternode_Key_Table(){
+    cd ~
     PRIVK1=$(sed -n '4p' < ${DPATH}mnkey.tbl)
     PRIVK2=$(sed -n '5p' < ${DPATH}mnkey.tbl)
     PRIVK3=$(sed -n '6p' < ${DPATH}mnkey.tbl)
@@ -1311,18 +1330,17 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   function_user_add_check
   download_coinfiles
   function_bootstrap
-  function_build_IP
   nodeunit=1
   function_build_node_configuration
   launch_first_node
   Function_Rocket_Delay
   wait_first_node_launch
   }
-  #End installation Core
-  #Program Core
+
+  #Main Program Core
   clear
   Function_Display_Null_Logo
-  function_Display_Twins_Logo
+  Function_Display_Twins_Logo
   Function_Check_First_Run
   function_first_nodecheck
   while true
