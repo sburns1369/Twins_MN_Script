@@ -5,6 +5,21 @@
 #As well as the donation address for the “Buy the poor guy a red bull”
 #LTC address: MUdDdVr4Az1dVw47uC4srJ31Ksi5SNkC7H
 #This script work is still in active deployment so please keep an eye April 2019
+### TODO list ### Update 5/13
+#if not masternode1, check and use legacy masternode
+#impliment Masternode Genkey Tables with keygen
+#confirm IP tables working correctly
+#create better end of installation outputs for users
+#remove all "logo" functions out of main script, and move to stand alone script
+#relocation donation information to stand along script
+#create option do display "suggested" masternode.config
+#help section
+#relocate all MN installation to one script, and stop calling support scripts
+#firewall install and maintainance
+#figure out what purple digital ocean screen is and how to bypass or add pre-install instructions
+#clear old testing notes
+#make todo list off menu
+#add hash check to download and verify against hash on seperate server
 declare -i NC DEV DEVC DEVOld DEVMN0 DEVMN1 DEVMN2 DEVMN3 DEVMN4 DEVMN5 DEVMN6 DEVMN7 DEVMN8
 #Counter
 NC=0
@@ -34,7 +49,7 @@ ADDNODE2=195.201.138.177:37817
 ADDNODE3=34.210.87.100:37817
 ADDNODE4=54.213.46.194:37817
 ADDNODE5=116.203.115.149:37817
-COINPORT=37807
+COINPORT=37817
 COINRPCPORT=13295
 #path to NullEntryDev stuff
 DPATH=/usr/local/nullentrydev/
@@ -222,10 +237,10 @@ echo -e "         ."
   echo
   echo -e ${BLUE}"May this script will store a small amount data in /usr/local/nullentrydev/ ?"${CLEAR}
   echo -e ${BLUE}"This information is for version updates, masternode installation, file repair"${CLEAR}
-  echo -e ${BLUE}"and later implimentation. Zero information is transmitted off the VPS or collected"${CLEAR}
+  echo -e ${BLUE}"and later implementation. Zero information is transmitted off the VPS or collected"${CLEAR}
   echo -e ${BLUE}"for any advertising or information harvesting."${CLEAR}
   echo
-  echo -e ${BLUE}"Upon agrement it will start to automatically install the Libraries and code"${CLEAR}
+  echo -e ${BLUE}"Upon agreement it will start to automatically install the Libraries and code"${CLEAR}
   echo -e ${BLUE}"needed for most masternodes and this script. As well as Update and Upgrade"${CLEAR}
   echo -e ${BLUE}"existing software on your VPS. Additional dependencies May be installed later"${CLEAR}
   echo
@@ -252,7 +267,7 @@ echo -e "         ."
   echo -e "2 - Install or Add Masternodes"
   echo -e "3 - Masternode Manager"
   echo -e "4 - Donate"
-  #  echo -e "5 - Maintenance"
+  echo -e "5 - Maintenance"
   echo -e "X - Exit"
   read_MainMenuOptions
   }
@@ -376,34 +391,34 @@ echo -e "         ."
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "01 - Masternode One"
+  echo -e "1 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "02 - Masternode Two"
+  echo -e "2 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "03 - Masternode Three"
+  echo -e "3 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "04 - Masternode Four"
+  echo -e "4 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "05 - Masternode Five"
+  echo -e "5 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "06 - Masternode Six"
+  echo -e "6 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "07 - Masternode Seven"
+  echo -e "7 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "08 - Masternode Eight"
+  echo -e "8 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "09 - Masternode Nine"
+  echo -e "9 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
-  echo -e "10 - Masternode Ten"
+  echo -e "0 - Masternode Ten"
   fi
   echo -e "A - Start All ${COIN3} Masternodes"
   echo -e "B - Back out of Menu"
@@ -417,11 +432,15 @@ echo -e "         ."
   case $choice in
     l) nodeunit=
     start_masternode ;;
+    L) nodeunit=
+    start_masternode ;;
     1) nodeunit=1
     start_masternode ;;
     2) nodeunit=2
     start_masternode ;;
     3) nodeunit=3
+    start_masternode ;;
+    03) nodeunit=3
     start_masternode ;;
     4) nodeunit=4
     start_masternode ;;
@@ -437,9 +456,9 @@ echo -e "         ."
     start_masternode ;;
     10) nodeunit=0
     start_masternode ;;
-    a) echo -e "Launching all Masters!"
+    a) echo -e "Launching all Mastersnodes!"
     start_All_Nodes ;;
-    A) echo -e "Launching all Masters!"
+    A) echo -e "Launching all Mastersnodes!"
     start_All_Nodes ;;
     b) echo -e "backing out" ;;
     B) echo -e "backing out" ;;
@@ -459,34 +478,34 @@ echo -e "         ."
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "01 - Masternode One"
+  echo -e "1 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "02 - Masternode Two"
+  echo -e "2 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "03 - Masternode Three"
+  echo -e "3 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "04 - Masternode Four"
+  echo -e "4 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "05 - Masternode Five"
+  echo -e "5 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "06 - Masternode Six"
+  echo -e "6 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "07 - Masternode Seven"
+  echo -e "7 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "08 - Masternode Eight"
+  echo -e "8 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "09 - Masternode Nine"
+  echo -e "9 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
-  echo -e "10 - Masternode Ten"
+  echo -e "0 - Masternode Ten"
   fi
   #echo -e "A - Re-Index All ${COIN3} Masternodes"
   echo -e "B - Back out of Menu"
@@ -500,6 +519,8 @@ echo -e "         ."
   read -p "Enter choice " choice
   case $choice in
     l) nodeunit=
+    function_reindex_masternode ;;
+    L) nodeunit=
     function_reindex_masternode ;;
     1) nodeunit=1
     function_reindex_masternode ;;
@@ -569,31 +590,31 @@ echo -e "         ."
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "01 - Masternode One"
+  echo -e "1 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "02 - Masternode Two"
+  echo -e "2 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "03 - Masternode Three"
+  echo -e "3 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "04 - Masternode Four"
+  echo -e "4 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "05 - Masternode Five"
+  echo -e "5 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "06 - Masternode Six"
+  echo -e "6 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "07 - Masternode Seven"
+  echo -e "7 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "08 - Masternode Eight"
+  echo -e "8 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "09 - Masternode Nine"
+  echo -e "9 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -612,31 +633,31 @@ echo -e "         ."
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "01 - Masternode One"
+  echo -e "1 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "02 - Masternode Two"
+  echo -e "2 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "03 - Masternode Three"
+  echo -e "3 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "04 - Masternode Four"
+  echo -e "4 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "05 - Masternode Five"
+  echo -e "5 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "06 - Masternode Six"
+  echo -e "6 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "07 - Masternode Seven"
+  echo -e "7 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "08 - Masternode Eight"
+  echo -e "8 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "09 - Masternode Nine"
+  echo -e "9 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -652,6 +673,8 @@ echo -e "         ."
   read -p "Enter choice " choice
   case $choice in
     l) nodeunit=
+    stop_masternode ;;
+    L) nodeunit=
     stop_masternode ;;
     1) nodeunit=1
     stop_masternode ;;
@@ -717,6 +740,8 @@ echo -e "         ."
   case $choice in
     l) nodeunit=
     edit_menu_choice ;;
+    L) nodeunit=
+    edit_menu_choice ;;
     1) nodeunit=1
     edit_menu_choice ;;
     2) nodeunit=2
@@ -753,31 +778,31 @@ echo -e "         ."
   echo -e "L - Legacy Masternode One Status"
   fi
   if [ -d /home/${COINl}1 ]; then
-  echo -e "01 - Masternode One"
+  echo -e "1 - Masternode One"
   fi
   if [ -d /home/${COINl}2 ]; then
-  echo -e "02 - Masternode Two"
+  echo -e "2 - Masternode Two"
   fi
   if [ -d /home/${COINl}3 ]; then
-  echo -e "03 - Masternode Three"
+  echo -e "3 - Masternode Three"
   fi
   if [ -d /home/${COINl}4 ]; then
-  echo -e "04 - Masternode Four"
+  echo -e "4 - Masternode Four"
   fi
   if [ -d /home/${COINl}5 ]; then
-  echo -e "05 - Masternode Five"
+  echo -e "5 - Masternode Five"
   fi
   if [ -d /home/${COINl}6 ]; then
-  echo -e "06 - Masternode Six"
+  echo -e "6 - Masternode Six"
   fi
   if [ -d /home/${COINl}7 ]; then
-  echo -e "07 - Masternode Seven"
+  echo -e "7 - Masternode Seven"
   fi
   if [ -d /home/${COINl}8 ]; then
-  echo -e "08 - Masternode Eight"
+  echo -e "8 - Masternode Eight"
   fi
   if [ -d /home/${COINl}9 ]; then
-  echo -e "09 - Masternode Nine"
+  echo -e "9 - Masternode Nine"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "10 - Masternode Ten"
@@ -844,6 +869,8 @@ echo -e "         ."
   read -p "Enter choice : " choice
   case $choice in
     l) nodeunit=
+    find_Masternodes ;;
+    L) nodeunit=
     find_Masternodes ;;
     1) nodeunit=1
     find_Masternodes ;;
@@ -925,6 +952,7 @@ echo -e "         ."
           echo -e "Running on IPv4 :${YELLOW} ${DISPIP}" ${CLEAR}
         else
         DISPIP=$(sed -n '4p' < /usr/local/nullentrydev/${nodeunit}.tmp | cut -d'"' -f4 | cut -d':' -f1-8)
+#add if DISPIP = not blank
           echo -e "Running on IPv6 : ${YELLOW} ${DISPIP}" ${CLEAR}
         fi
         rm -r /usr/local/nullentrydev/${nodeunit}.tmp
@@ -1141,43 +1169,6 @@ echo -e "         ."
   echo "addnode=$ADDNODE5" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   else
   echo "addnode=${MNIP1}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=159.69.71.209:52000" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=159.89.187.96:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=159.89.195.33:59502" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.114.3.12:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.179.97.66:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.86.91.21:50346" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=167.99.223.218:37118" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=173.212.242.63:36400" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=176.9.60.206:45804" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=178.128.126.159:57392" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=18.222.21.84:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=188.40.174.97:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=195.201.108.252:48132" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=206.189.151.70:45254" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.154.197.200:44978" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.180.224.165:45556" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.180.232.7:53756" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=207.246.81.1:64706" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=209.97.164.11:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=34.220.44.234:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=45.32.19.53:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=45.77.15.207:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=45.79.6.12:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=51.15.101.128:40566" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=51.15.198.105:42714" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=51.158.78.150:41166" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=66.42.90.8:34914" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=68.183.131.54:12195" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=68.183.200.153:40504" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=72.219.164.254:61879" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=77.222.98.161:62457" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=85.214.75.2:53402" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=85.88.29.173:50206" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=94.177.243.112:35488" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=95.216.43.72:45132" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=95.216.74.153:58244" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   fi
   }
   ## End Make Node Configuration Files
@@ -1202,7 +1193,7 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   echo -e "${RED}This process can take a while!${CLEAR}"
   echo -e "${YELLOW}Waiting on First Masternode Block Chain to Synchronize${CLEAR}"
   echo -e "${YELLOW}Once complete, it will stop and copy the block chain to${CLEAR}"
-  echo -e "${YELLOW}the other masternodes.  This prevent all masternodes${CLEAR}"
+  echo -e "${YELLOW}the other masternodes.  This will prevent all masternodes${CLEAR}"
   echo -e "${YELLOW}from downloading the block chain individually; taking up${CLEAR}"
   echo -e "${YELLOW}more time and resources.  Current Block count will be displayed below.${CLEAR}"
   ${COINDAEMONCLI} -datadir=/home/${COINl}${nodeunit}/${COINCORE} getblockcount
@@ -1399,6 +1390,25 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   build_first_node(){
   function_update
   }
+#not used yet, testing
+  function_buildGenkeys(){
+    echo -e ${YELLOW} "Building Masternode Keys Table"${CLEAR}
+    sudo touch ${DPATH}mnkey.tbl
+    echo \#If editing IP Table list them below.  Starting from masternode 1 to 10 > ${DPATH}mnkey.tbl
+    echo \#IPv4 and IPv6 are accepted.  Masternode needs to be rebuilt >> ${DPATH}mnkey.tbl
+    echo \#unless IPs are entered in configuration directly.  >> ${DPATH}mnkey.tbl
+    #loop masternode genkey 10 times into file
+    MNIP1=$(sed -n '4p' < ${DPATH}mnkey.tbl)
+    MNIP2=$(sed -n '5p' < ${DPATH}mnkey.tbl)
+    MNIP3=$(sed -n '6p' < ${DPATH}mnkey.tbl)
+    MNIP4=$(sed -n '7p' < ${DPATH}mnkey.tbl)
+    MNIP5=$(sed -n '8p' < ${DPATH}mnkey.tbl)
+    MNIP6=$(sed -n '9p' < ${DPATH}mnkey.tbl)
+    MNIP7=$(sed -n '10p' < ${DPATH}mnkey.tbl)
+    MNIP8=$(sed -n '11p' < ${DPATH}mnkey.tbl)
+    MNIP9=$(sed -n '12p' < ${DPATH}mnkey.tbl)
+    MNIP10=$(sed -n '13p' < ${DPATH}mnkey.tbl)
+  }
   ### End - Masternode function_Masternode_upgrade
   function_user_add_check(){
   if id "${COINl}${nodeunit}" >/dev/null 2>&1; then
@@ -1429,6 +1439,8 @@ echo "addnode=99.246.100.151:40734" >> /home/${COINl}${nodeunit}/.${COINl}/${COI
   #add check before downloading
   sudo apt-get install unrar
   unrar x rocketstrap.rar /home/${COINl}1/.${COINl}
+#add hash Check
+#compare hash
   #test_pause
   rm -rf /root/${COIN3l}
   }
