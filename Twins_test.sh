@@ -956,7 +956,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   #rm -rf /root/${COIN3l}
   }
   ##Make Node configuration file
-  Function_Build_Node_Configuration(){
+  Function_Build_Node_Directories(){
   echo -e "${GREEN}Configuring ${COIN} Masternode #${nodeunit} ${CLEAR}"
   if [ ! -d /home/${COINl}${nodeunit} ]; then
       sudo mkdir /home/${COINl}${nodeunit}
@@ -968,6 +968,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
       #Test_Pause
       echo test mkdir /home/${COINl}${nodeunit}/.${COINl}
   fi
+}
+  Function_Build_Node_Configuration(){
+  Function_Build_Node_Directories
   sudo touch /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcuser=u3er"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcpassword=pa55"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1085,7 +1088,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   Function_Replicate_Node(){
   echo -e "${GREEN}Haulting and Replicating First ${COIN} Node${CLEAR}"
   echo
-  sleep 5
+  sleep 2
+  Function_Build_Node_Directories
   cd /
   ${COINDAEMONCLI} -datadir=/home/${COINl}1/${COINCORE} stop
   sleep 10
