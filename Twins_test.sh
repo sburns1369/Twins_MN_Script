@@ -153,7 +153,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     sleep 15
     echo -e ${CLEAR}
   else
-    echo -e "Here be dragons"
+    echo -e "Here be dragons - Function_Start_Masternode"
   fi
   }
   #start Masternode
@@ -164,7 +164,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     sleep 15
     echo -e ${CLEAR}
   else
-    echo -e "Here be dragons"
+    echo -e "Here be dragons - Function_Stop_Masternode"
   fi
   }
   #edit Masternode Configuration
@@ -423,7 +423,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   sleep 15
   echo -e ${CLEAR}
   else
-  echo -e "Here be dragons"
+  echo -e "Here be dragons - function_reindex_masternode"
   fi
   }
   ## Start ALL MN function
@@ -591,7 +591,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     edit_masternode
     Function_Start_Masternode
   else
-    echo -e "Here be dragons!"
+    echo -e "Here be dragons! - edit_menu_choice"
   fi
   }
   Function_Edit_Masternode_Config(){
@@ -1092,11 +1092,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   Function_Build_Node_Directories
   cd /
   ${COINDAEMONCLI} -datadir=/home/${COINl}1/${COINCORE} stop
-  sleep 10
+  sleep 5
   sudo cp -r /home/${COINl}1/.${COINl}/* /home/${COINl}${nodeunit}/.${COINl}/
   sudo rm /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
+#
+if [ -a /home/${COINl}${nodeunit}/${COINCONFIG} ]; then
   sudo cp -r /home/${COINl}${nodeunit}/${COINCONFIG} /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  sleep 5
+fi
+#
+  sleep 3
   Function_Start_All_Nodes
   }
   ### Start - Masternode function_calculate_Masternode_Install
