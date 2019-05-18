@@ -83,8 +83,6 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
 pause
 }
 #twins_Logo
-pause
-
 Function_Display_Twins_Logo(){
   bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/logo.sh)
   pause
@@ -99,9 +97,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if grep -Fxq "firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
     then
       echo "Not First Run - Testing Check Point"
-      Test_Pause
+      #Test_Pause
     else
-  Test_Pause
+  #Test_Pause
   bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/welcome.sh)
   read  -p "Enter choice : " NULLREC
   case $NULLREC in
@@ -136,10 +134,10 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   local choice
   read -p "Enter choice : " choice
   case $choice in
-    1) find_Masternodes ;;
+    1) Find_All_Masternodes ;;
     2) function_masternode_upgrade ;;
     3) Function_Manager_WINMasternodes;;
-    4) echo Building
+    4) Function_Display_MasternodeConf
     pause;;
     5) function_Donations ;;
     6) manager_maintenance ;;
@@ -155,8 +153,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     ${COINDAEMON} -datadir=${COINHOME}${nodeunit}/${COINCORE} -daemon
     sleep 15
     echo -e ${CLEAR}
-  else
-    echo -e "Here be dragons - Function_Start_Masternode"
+  #else
+    #echo -e "Here be dragons - Function_Start_Masternode"
   fi
   }
   #start Masternode
@@ -164,10 +162,10 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if [ -d /home/${COINl}${nodeunit} ]; then
     echo -e ${GREEN}"Stopping Masternode ${nodeunit}" ${YELLOW}
     ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} stop
-    sleep 15
+    sleep 7
     echo -e ${CLEAR}
-  else
-    echo -e "Here be dragons - Function_Stop_Masternode"
+  #else
+    #echo -e "Here be dragons - Function_Stop_Masternode"
   fi
   }
   #edit Masternode Configuration
@@ -188,7 +186,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo "        Displaying Masternode Status"
   echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo -e "1 -  Display Masternode Information"
-  echo -e "2 -  Edit Masternode Configuration"
+  echo -e "2 -  View Masternode Configuration"
   echo -e "3 -  Start Masternode(s)"
   echo -e "4 -  Stop Masternode(s)"
   echo -e "5 -  Re-Index Masternode(s)"
@@ -202,7 +200,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   read -p "Enter choice " choice
   case $choice in
     1) display_MN_Status ;;
-    2) Edit_MN_Status ;;
+    2) Function_View_Masternode_Config_Menu ;;
     3) manager_Start_Masternodes ;;
     4) manager_stop_Masternodes ;;
     5) function_menu_Reindex_Masternodes ;;
@@ -221,11 +219,14 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
   echo " Displaying Maintainance Options"
   echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo -e "1 -  Update Wallet"
-  echo -e "B-   Back - Previous Menu"
-  echo -e "X -  Exit Program"
+  echo -e "1  -  Update Wallet"
+  echo -e "2  -  Edit Masternode Configuration"
+  echo -e "3  -  Glances - See System Resources"
+  echo -e "B  -  Back - Previous Menu"
+  echo -e "X  -  Exit Program"
   read_manager_maintenance
   }
+
   #Start - manager_maintenance read options
   read_manager_maintenance(){
   local choice
@@ -236,6 +237,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     Function_Start_All_Nodes
     echo "Wallet Update should be complete"
     pause ;;
+    2) Edit_MN_Status ;;
+    3) Function_Glances;;
     b) echo ;;
     B) echo ;;
     x) exit 0;;
@@ -243,7 +246,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     *) echo -e "${RED}Error...${STD}" ${CLEAR} && sleep 2
   esac
   }
-  #End - manager_maintenance read options
+
+
   #start_masternodes_Menu
   manager_Start_Masternodes(){
   clear
@@ -384,10 +388,10 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo -e "10 - Masternode Ten"
   fi
   if [ -d /home/${COINl}11 ]; then
-  echo -e "11 - Masternode Ten"
+  echo -e "11 - Masternode Eleven"
   fi
   if [ -d /home/${COINl}12 ]; then
-  echo -e "12 - Masternode Ten"
+  echo -e "12 - Masternode Twelve"
   fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "0 - Masternode Zero"
@@ -463,7 +467,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   nodeunit=
   Function_Start_Masternode
   nodeunit=0
-  until [[ $nodeunit = 10 ]]; do
+  until [[ $nodeunit = 13 ]]; do
   Function_Start_Masternode
   nodeunit=$[$nodeunit+1]
   done
@@ -509,10 +513,116 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "11 - Masternode Eleven"
+  fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "12 - Masternode Twelve"
+  fi
+  if [ -d /home/${COINl}0 ]; then
+  echo -e "0 - Masternode Zero"
+  fi
   echo -e "B - Back out of Menu"
   echo -e "X - Exit"
   Function_Edit_Masternode_Config
+  #checkpoint1
   }
+  Function_View_Masternode_Config_Menu(){
+  clear
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  echo "      View Masternode Configuration"
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  if [ -d /home/${COINl} ]; then
+  echo -e "L - Legacy Masternode One Status"
+  fi
+  if [ -d /home/${COINl}1 ]; then
+  echo -e "1 - Masternode One"
+  fi
+  if [ -d /home/${COINl}2 ]; then
+  echo -e "2 - Masternode Two"
+  fi
+  if [ -d /home/${COINl}3 ]; then
+  echo -e "3 - Masternode Three"
+  fi
+  if [ -d /home/${COINl}4 ]; then
+  echo -e "4 - Masternode Four"
+  fi
+  if [ -d /home/${COINl}5 ]; then
+  echo -e "5 - Masternode Five"
+  fi
+  if [ -d /home/${COINl}6 ]; then
+  echo -e "6 - Masternode Six"
+  fi
+  if [ -d /home/${COINl}7 ]; then
+  echo -e "7 - Masternode Seven"
+  fi
+  if [ -d /home/${COINl}8 ]; then
+  echo -e "8 - Masternode Eight"
+  fi
+  if [ -d /home/${COINl}9 ]; then
+  echo -e "9 - Masternode Nine"
+  fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "10 - Masternode Ten"
+  fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "11 - Masternode Eleven"
+  fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "12 - Masternode Twelve"
+  fi
+  if [ -d /home/${COINl}0 ]; then
+  echo -e "0 - Masternode Zero"
+  fi
+  echo -e "B - Back out of Menu"
+  echo -e "X - Exit"
+  Function_Read_Masternode_Config_Menu
+  }
+
+#Testpoint 4
+Function_Read_Masternode_Config_Menu(){
+local choice
+read -p "Enter choice : " choice
+case $choice in
+  l) nodeunit=
+  edit_menu_choice ;;
+  L) nodeunit=
+  edit_menu_choice ;;
+  1) nodeunit=1
+  edit_menu_choice ;;
+  2) nodeunit=2
+  edit_menu_choice ;;
+  3) nodeunit=3
+  edit_menu_choice ;;
+  4) nodeunit=4
+  edit_menu_choice ;;
+  5) nodeunit=5
+  edit_menu_choice ;;
+  6) nodeunit=6
+  edit_menu_choice ;;
+  7) nodeunit=7
+  edit_menu_choice ;;
+  8) nodeunit=8
+  edit_menu_choice ;;
+  9) nodeunit=9
+  edit_menu_choice ;;
+  10) nodeunit=10
+  edit_menu_choice ;;
+  12) nodeunit=12
+  edit_menu_choice ;;
+  11) nodeunit=11
+  edit_menu_choice ;;
+  0) nodeunit=0
+  edit_menu_choice ;;
+  b) echo -e "backing out" ;;
+  B) echo -e "backing out" ;;
+  x) exit 0;;
+  X) exit 0;;
+  *) echo -e "${RED}Error...${STD}" ${CLEAR} && sleep 2
+esac
+}
+
+
   #Function_Stop_Masternodes_Menu
   manager_stop_Masternodes(){
   clear
@@ -552,6 +662,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "11 - Masternode Eleven"
+  fi
+  if [ -d /home/${COINl}10 ]; then
+  echo -e "12 - Masternode Twelve"
+  fi
+  if [ -d /home/${COINl}0 ]; then
+  echo -e "0 - Masternode Zero"
+  fi
   echo -e "A - stop All ${COIN3} Masternodes"
   echo -e "B - Back out of Menu"
   echo -e "X - Exit"
@@ -584,7 +703,13 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     Function_Stop_Masternode ;;
     9) nodeunit=9
     Function_Stop_Masternode ;;
-    10) nodeunit=0
+    10) nodeunit=10
+    Function_Stop_Masternode ;;
+    11) nodeunit=11
+    Function_Stop_Masternode ;;
+    12) nodeunit=2
+    Function_Stop_Masternode ;;
+    0) nodeunit=0
     Function_Stop_Masternode ;;
     a) echo -e "Stopping all Mastersnodes!"
     stop_All_Nodes ;;
@@ -620,10 +745,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     Function_Stop_Masternode
     edit_masternode
     Function_Start_Masternode
-  else
-    echo -e "Here be dragons! - edit_menu_choice"
+  #else
+    #echo -e "Here be dragons! - edit_menu_choice"
   fi
   }
+  #checkpoint1
   Function_Edit_Masternode_Config(){
   local choice
   read -p "Enter choice : " choice
@@ -650,7 +776,13 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     edit_menu_choice ;;
     9) nodeunit=9
     edit_menu_choice ;;
-    10) nodeunit=0
+    10) nodeunit=10
+    edit_menu_choice ;;
+    12) nodeunit=12
+    edit_menu_choice ;;
+    11) nodeunit=11
+    edit_menu_choice ;;
+    0) nodeunit=0
     edit_menu_choice ;;
     b) echo -e "backing out" ;;
     B) echo -e "backing out" ;;
@@ -696,6 +828,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   fi
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
+  fi
+  if [ -d /home/${COINl}11 ]; then
+  echo -e "11 - Masternode Ten"
+  fi
+  if [ -d /home/${COINl}12 ]; then
+  echo -e "12 - Masternode Ten"
+  fi
+  if [ -d /home/${COINl}0 ]; then
+  echo -e "10 - Masternode Zero"
   fi
   echo -e "B - Back out of Menu"
   echo -e "X - Exit"
@@ -759,35 +900,35 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   read -p "Enter choice : " choice
   case $choice in
     l) nodeunit=
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     L) nodeunit=
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     1) nodeunit=1
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     2) nodeunit=2
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     3) nodeunit=3
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     4) nodeunit=4
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     5) nodeunit=5
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     6) nodeunit=6
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     7) nodeunit=7
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     8) nodeunit=8
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     9) nodeunit=9
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     10) nodeunit=10
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     11) nodeunit=11
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     12) nodeunit=12
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     0) nodeunit=0
-    find_Masternodes ;;
+    Find_All_Masternodes ;;
     b) echo -e "backing out" ;;
     B) echo -e "backing out" ;;
     x) exit 0;;
@@ -796,14 +937,14 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   esac
   }
   #end find test masternode menu
-  find_Masternodes(){
+  Find_All_Masternodes(){
   local Count
   Count=0
   nodeunit=
-  function_find_Masternodes
+  Function_Find_Masternodes
   nodeunit=0
   until [[ $nodeunit = 10 ]]; do
-  function_find_Masternodes
+  Function_Find_Masternodes
   nodeunit=$[$nodeunit+1]
   #if [ ${nodeunit} -eq "4" ]; then
   #  pause
@@ -812,7 +953,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   pause
   }
   # Find Masternode Test Function
-  function_find_Masternodes(){
+  Function_Find_Masternodes(){
   local choice
   if [ -d /home/${COINl}${nodeunit} ]; then
     if [ -z ${nodeunit} ]; then
@@ -848,8 +989,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
           echo -e "Running on IPv4 :${YELLOW} ${DISPIP}" ${CLEAR}
         else
         DISPIP=$(sed -n '4p' < /usr/local/nullentrydev/${nodeunit}.tmp | cut -d'"' -f4 | cut -d':' -f1-8)
-#add if DISPIP = not blank
-          echo -e "Running on IPv6 : ${YELLOW} ${DISPIP}" ${CLEAR}
+          if [ ! -z "$DISPIP"]; then
+            echo -e "Running on IPv6 : ${YELLOW} ${DISPIP}" ${CLEAR}
+          fi
         fi
         rm -r /usr/local/nullentrydev/${nodeunit}.tmp
   #        echo "Running on IP : ${DISPIP}"
@@ -862,8 +1004,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   fi
   echo
   }
-  #start function_update
-  function_update() {
+  #start Function_AptGet_Update
+  Function_AptGet_Update() {
     echo -e ${RED}"Updating Apps"${CLEAR}
     sudo apt-get -y update
     sudo apt-get -y upgrade
@@ -986,7 +1128,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   ${DECOMPRESS} ${COINFILES}
   sleep 3
   sudo mv /root/${COIN3l}/twins-3.2.1/bin/${COINDAEMON} /root/${COIN3l}/twins-3.2.1/bin/${COINDAEMONCLI} /usr/local/bin
-  sudo chmod 755 -R  /usr/local/bin/dev*
+  sudo chmod 755 -R  /usr/local/bin/twin*
   #rm -rf /root/${COIN3l}
   }
   ##Make Node configuration file
@@ -995,12 +1137,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if [ ! -d /home/${COINl}${nodeunit} ]; then
       sudo mkdir /home/${COINl}${nodeunit}
       #Test_Pause
-      echo test mkdir /home/${COINl}${nodeunit}
-  fi
-  if [ ! -d /home/${COINl}${nodeunit}/.${COINl} ]; then
+      #echo test mkdir /home/${COINl}${nodeunit}
+  elif [ ! -d /home/${COINl}${nodeunit}/.${COINl} ]; then
       sudo mkdir /home/${COINl}${nodeunit}/.${COINl}
       #Test_Pause
-      echo test mkdir /home/${COINl}${nodeunit}/.${COINl}
+      #echo test mkdir /home/${COINl}${nodeunit}/.${COINl}
   fi
 }
   Function_Build_Node_Configuration(){
@@ -1018,7 +1159,6 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo "masternode=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   RPCPORT=$(($COINRPCPORT+$nodeunit-1))
   echo "rpcport=${RPCPORT}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  echo "listen=0" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   if [[ $nodeunit -eq 1 ]] ; then
     echo "listen=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
     echo "datacarrier=1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1045,11 +1185,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     elif [[ $nodeunit -eq 9 ]] ; then
       echo "externalip=[${MNIP9}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
     elif [[ $nodeunit -eq 10 ]] ; then
-      echo "externalip=[${MNIP10}]:$COINPORT" >> /home/${COINl}10/.${COINl}/${COINCONFIG}
+      echo "externalip=[${MNIP10}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
     elif [[ $nodeunit -eq 11 ]] ; then
-      echo "externalip=[${MNIP11}]:$COINPORT" >> /home/${COINl}11/.${COINl}/${COINCONFIG}
+      echo "externalip=[${MNIP11}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
     elif [[ $nodeunit -eq 12 ]] ; then
-      echo "externalip=[${MNIP12}]:$COINPORT" >> /home/${COINl}12/.${COINl}/${COINCONFIG}
+      echo "externalip=[${MNIP12}]:$COINPORT" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   fi
   if [[ $nodeunit -eq 1 ]] ; then
   echo "masternodeprivkey=$PRIVK1" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1119,18 +1259,19 @@ fi
   ## End Make Node Configuration Files
 #testpoint 3
 Function_Glances(){
-  if  [ grep -Fxq "glancesInstalled: true" /usr/local/nullentrydev/mnodes.log ]; then
-    clear
-    echo
-    echo -e ${RED}"Hold [Control Key] and press [C] to exit Glances!"${CLEAR}
-    echo -e ${GREEN}"Press [Enter Key] when ready to enter Glances."${CLEAR}
-    pause
-    glances
-  else
-    echo -e ${YELLOW} "Installing System Utility Glances" ${CLEAR}
-    apt-get -y install glances
-    echo "swapInstalled: true" >> /usr/local/nullentrydev/mnodes.log
-    Function_Glances
+  if grep -Fxq "glancesInstalled: true" /usr/local/nullentrydev/mnodes.log
+    then
+      clear
+      echo
+      echo -e ${RED}"Hold [Control Key] and press [C] to exit Glances!"${CLEAR}
+      echo -e ${GREEN}"Press [Enter Key] when ready to enter Glances."${CLEAR}
+      pause
+      glances
+    else
+      echo -e ${YELLOW} "Installing System Utility Glances" ${CLEAR}
+      apt-get -y install glances
+      echo "glancesInstalled: true" >> /usr/local/nullentrydev/mnodes.log
+      Function_Glances
   fi
 }
   ## Start Launch First node
@@ -1177,7 +1318,6 @@ Function_Glances(){
   sleep 2
   Function_Build_Node_Directories
   cd /
-  ${COINDAEMONCLI} -datadir=/home/${COINl}1/${COINCORE} stop
   sleep 2
   sudo cp -r /home/${COINl}1/.${COINl}/* /home/${COINl}${nodeunit}/.${COINl}/
   sudo rm /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1191,25 +1331,25 @@ fi
 #
   }
   ### Start - Masternode function_calculate_Masternode_Install
-  function_new_masternode_install_menu(){
-  echo -e ${GREEN}" How many ${COIN3} Masternode(s) would you like to Install? [1 - 12]"${CLEAR}
-  echo -e "Press [C] to exit"
-  read -p "Enter Number : " Install_Count
-  case $Install_Count in
-    1-12) echo "test fire ${Install_Count}" ;;
-    c) exit 0 ;;
-    c) exit 0 ;;
-    *) echo -e "${RED}Invalid Amount!${STD}" ${CLEAR} && sleep 2 ;;
-  esac
+  #function_new_masternode_install_menu(){
+  #echo -e ${GREEN}" How many ${COIN3} Masternode(s) would you like to Install? [1 - 12]"${CLEAR}
+  #echo -e "Press [C] to exit"
+  #read -p "Enter Number : " Install_Count
+  #case $Install_Count in
+#    1-12) echo "test fire ${Install_Count}" ;;
+#    c) exit 0 ;;
+#    c) exit 0 ;;
+#    *) echo -e "${RED}Invalid Amount!${STD}" ${CLEAR} && sleep 2 ;;
+#  esac
   #set permaters to install
-  }
+#  }
   ### End -  Masternode function_calculate_Masternode_Install
-  function_install_math() {
-  echo ${Install_Count}
+#  function_install_math() {
+#  echo ${Install_Count}
   #figure out how many MNs exists
   #Figure out where to start installation from
   #limit installation to 10
-  }
+  #}
   ### Start - Masternode function_Masternode_upgrade
   function_masternode_upgrade(){
     clear
@@ -1238,7 +1378,7 @@ fi
     local choice
     read -p "Enter choice " choice
     case $choice in
-      1) build_first_node ;;
+      1) Function_Build_First_Node ;;
       2) INSTALLAMOUNT=2
       Function_Install_Secondaries
       pause ;;
@@ -1324,17 +1464,17 @@ Function_Build_IP_Table(){
   regex='^([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}$'
   FINDIP=$(hostname -I | cut -f2 -d' '| cut -f1-7 -d:)
   if [[ $FINDIP =~ $regex ]]; then
-  echo "IPv6 Address check is good"
-  echo ${FINDIP} testing note
+  #echo "IPv6 Address check is good"
+  #echo ${FINDIP} testing note
   IP=${FINDIP}
-  echo ${IP}
+  #echo ${IP}
   else
   echo "IPv6 Address check is not expected, getting IPv6 Helper to recalculate"
-  echo $FINDIP - testing note 1
+  #echo $FINDIP - testing note 1
   sudo apt-get -y install sipcalc
-  echo $FINDIP - testing note 2
+  #echo $FINDIP - testing note 2
   FINDIP=$(hostname -I | cut -f3 -d' '| cut -f1-8 -d:)
-  echo $FINDIP - check 3
+  #echo $FINDIP - check 3
   echo "Attempting to adjust results and re-calculate IPv6 Address"
   FINDIP=$(sipcalc ${FINDIP} | fgrep Expanded | cut -d ' ' -f3)
   if [[ $FINDIP =~ $regex ]]; then
@@ -1343,7 +1483,7 @@ Function_Build_IP_Table(){
   IP=${FINDIP}
   else
   echo "IPv6 Addressing check has failed. Contact NullEntry Support"
-  echo ${IP} testing note
+  #echo ${IP} testing note
   exit 1
   fi
   fi
@@ -1355,7 +1495,7 @@ Function_Build_IP_Table(){
   echo \#IPv4 and IPv6 are accepted.  Masternode needs to be rebuilt >> ${DPATH}ip.tbl
   echo \#unless IPs are entered in configuration directly.  >> ${DPATH}ip.tbl
   echo $(hostname -I | cut -f1 -d' ') >> ${DPATH}ip.tbl
-  for i in {15362..15372}; do printf "${IP}:%.4x\n" $i >> ${DPATH}ip.tbl; done
+  for i in {15362..15375}; do printf "${IP}:%.4x\n" $i >> ${DPATH}ip.tbl; done
   fi
 }
 #Reads IP Table for Masternodes; Storage Needed for Building & Adding Additional masternodes
@@ -1372,14 +1512,16 @@ Function_Build_IP_Table(){
   MNIP8=$(sed -n '11p' < ${DPATH}ip.tbl)
   MNIP9=$(sed -n '12p' < ${DPATH}ip.tbl)
   MNIP10=$(sed -n '13p' < ${DPATH}ip.tbl)
+  MNIP11=$(sed -n '14p' < ${DPATH}ip.tbl)
+  MNIP12=$(sed -n '15p' < ${DPATH}ip.tbl)
   }
 
-  build_first_node(){
-  function_update
+  Function_Build_First_Node(){
+  Function_AptGet_Update
   }
 #not used yet, testing
 Function_Masternode_Key_Check(){
-  if [ ! -f ${DPATH}mnkey.tbl ]; then
+  if [ ! -f ${DPATH}${COIN3l}mnkey.tbl ]; then
     Function_Build_Masternode_Key_Table
     Function_Read_Masternode_Key_Table
   else
@@ -1393,12 +1535,12 @@ Function_Build_Masternode_Key_Table(){
     nodeunit=1
     Function_Start_Masternode
     sleep 20
-    sudo touch ${DPATH}mnkey.tbl
-    echo \#If editing IP Table list them below.  Starting from masternode 1 to 10 > ${DPATH}mnkey.tbl
-    echo \Masternode needs to be rebuilt in order for these to take effect >> ${DPATH}mnkey.tbl
-    echo \#unless keys are entered in configuration directly.  >> ${DPATH}mnkey.tbl
+    sudo touch ${DPATH}${COIN3l}mnkey.tbl
+    echo \#If editing IP Table list them below.  Starting from masternode 1 to 10 > ${DPATH}${COIN3l}mnkey.tbl
+    echo \Masternode needs to be rebuilt in order for these to take effect >> ${DPATH}${COIN3l}mnkey.tbl
+    echo \#unless keys are entered in configuration directly.  >> ${DPATH}${COIN3l}mnkey.tbl
     count=0
-    until [[ $count = 10 ]]; do
+    until [[ $count = 13 ]]; do
     ${COINDAEMONCLI} -datadir=/home/${COINl}1/.${COINl} masternode genkey >> ${DPATH}${COIN3l}mnkey.tbl
     count=$[$count+1]
     done
@@ -1416,16 +1558,18 @@ Function_Read_Masternode_Key_Table(){
     PRIVK7=$(sed -n '10p' < ${DPATH}${COIN3l}mnkey.tbl)
     PRIVK8=$(sed -n '11p' < ${DPATH}${COIN3l}mnkey.tbl)
     PRIVK9=$(sed -n '12p' < ${DPATH}${COIN3l}mnkey.tbl)
-    MNIP10=$(sed -n '13p' < ${DPATH}${COIN3l}mnkey.tbl)
+    PRIVK10=$(sed -n '13p' < ${DPATH}${COIN3l}mnkey.tbl)
+    PRIVK11=$(sed -n '14p' < ${DPATH}${COIN3l}mnkey.tbl)
+    PRIVK12=$(sed -n '15p' < ${DPATH}${COIN3l}mnkey.tbl)
   }
   ### End - Masternode function_Masternode_upgrade
   Function_User_Add_Check(){
   if id "${COINl}${nodeunit}" >/dev/null 2>&1; then
   echo "${COINl}${nodeunit}user exists"
-  MN${nodeunit}=1
+  #MN${nodeunit}=1
   else
   sudo adduser --system --home /home/${COINl}${nodeunit} ${COINl}${nodeunit}
-  MN${nodeunit}=0
+  #DEVMN${nodeunit}=0
   fi
   }
   ## Start Bootstrap
@@ -1455,29 +1599,76 @@ Function_Read_Masternode_Key_Table(){
   }
 #Will be used to display masternode genkeys and IPs
   Function_Display_MasternodeConf(){
-    echo -e "${GREEN} Retreiving masternode.conf inputs"
-    edit
-    echo -e "#Not Yet Finished"
-    echo -e "#Will Finish"
-    echo -e "#Later"
-    Function_Read_Masternode_Key_Table
+    echo -e "${GREEN} Retreiving inputs for the local wallet masternode.conf"
+    echo -e "${YELLOW} Please Wait...."
+#testpoint 5
+      if [ -z "$MNIP1" ]; then
+        Function_IP_Table_Check
+      fi
+      if [ -z "$PRIVK1" ]; then
+        Function_Masternode_Key_Check
+      fi
+    echo -e "${RED}#Copy and paste the below lines in your Masternode.conf for the wallet on your computer"
+    echo -e "#replace the [Insert Transaction ID] [Insert Transaction output 0 or 1]"
+    echo -e "#The Alias listed ${COIN3l}01 etc, are just suggestions and can be replaced"
+    echo -e "${YELLOW}#If you have a problem seeing this expand your window, or copy while scrolling"
+    echo -e ${GREEN}
+    if [ -f /home/${COINl}1/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}01 ${MNIP1}:$COINPORT $PRIVK1 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}2/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}02 [${MNIP2}]:$COINPORT $PRIVK2 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}3/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}03 [${MNIP3}]:$COINPORT $PRIVK3 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}4/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}04 [${MNIP4}]:$COINPORT $PRIVK4 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}5/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}05 [${MNIP5}]:$COINPORT $PRIVK5 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}6/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}06 [${MNIP6}]:$COINPORT $PRIVK6 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}7/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}07 [${MNIP7}]:$COINPORT $PRIVK7 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}8/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}08 [${MNIP8}]:$COINPORT $PRIVK8 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}9/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}09 [${MNIP9}]:$COINPORT $PRIVK9 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}10/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}10 [${MNIP10}]:$COINPORT $PRIVK10 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}11/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}11 [${MNIP11}]:$COINPORT $PRIVK11 [Transaction ID] [Transaction Output]"
+    fi
+    if [ -f /home/${COINl}12/.${COINl}/${COINCONFIG} ]; then
+      echo -e "${COIN3l}12 [${MNIP12}]:$COINPORT $PRIVK12 [Transaction ID] [Transaction Output]"
+    fi
+    echo
   }
 #testpoint
   Function_Install_Secondaries(){
     INSTALLEDMN=1
+    ${COINDAEMONCLI} -datadir=/home/${COINl}1/${COINCORE} stop
+    sleep 15
       until [[ $INSTALLAMOUNT = $INSTALLEDMN ]]; do
       INSTALLEDMN=$[$INSTALLEDMN+1]
       nodeunit=$[$INSTALLEDMN]
       Function_User_Add_Check
       Function_Replicate_Node
       Function_Build_Node_Configuration
-    done
-    }
+      done
+  }
 
   #First node installation Core
   Function_First_Install(){
   function_swap_space
-  function_update
+  Function_AptGet_Update
   function_dependencies
   Function_User_Add_Check
   download_coinfiles
@@ -1487,9 +1678,10 @@ Function_Read_Masternode_Key_Table(){
   launch_first_node
   Function_Rocket_Delay
   wait_first_node_launch
-  #if masternode installed greater than 1
-  Function_Install_Secondaries
-  Function_Start_All_Nodes
+  if [[ ! $INSTALLAMOUNT -eq 1 ]] ; then
+    Function_Install_Secondaries
+    Function_Start_All_Nodes
+  fi
   }
 
   #Main Program Core
