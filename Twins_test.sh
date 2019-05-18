@@ -920,7 +920,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
         echo -e ${CLEAR}
         echo -e ${RED}"            ...Please Wait" ${CLEAR}
         sleep 5
-        function_install
+        Function_First_Install
         #add Regex or "are you sure"
         fi
       fi
@@ -972,6 +972,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
 }
   Function_Build_Node_Configuration(){
   Function_Build_Node_Directories
+  if [ ! -f /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG} ]; then
   sudo touch /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcuser=u3er"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   echo "rpcpassword=pa55"`shuf -i 100000-9999999 -n 1` >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1060,6 +1061,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   else
   echo "addnode=${MNIP1}" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   fi
+else
+  echo -e "Skipping -/home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}- Found!"
+fi
   }
   #testpoint 2 - not implimented
   Function_Add_Nodes(){
@@ -1093,9 +1097,9 @@ Function_Glances(){
     echo -e ${YELLOW} "Installing System Utility Glances" ${CLEAR}
     apt-get -y install glances
     echo "swapInstalled: true" >> /usr/local/nullentrydev/mnodes.log
-    sleep 3
     Function_Glances
-
+  fi
+}
   ## Start Launch First node
   launch_first_node(){
   echo -e ${BOLD}"Launching First ${COIN3} Node"${CLEAR}
@@ -1134,21 +1138,24 @@ Function_Glances(){
   ##End launch of first nodes
   ##Start of replicate nodes
   Function_Replicate_Node(){
+  if [ ! -f /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG} ]; then
   echo -e "${GREEN}Haulting and Replicating First ${COIN} Node${CLEAR}"
   echo
   sleep 2
   Function_Build_Node_Directories
   cd /
   ${COINDAEMONCLI} -datadir=/home/${COINl}1/${COINCORE} stop
-  sleep 5
+  sleep 2
   sudo cp -r /home/${COINl}1/.${COINl}/* /home/${COINl}${nodeunit}/.${COINl}/
   sudo rm /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
 #
 if [ -a /home/${COINl}${nodeunit}/${COINCONFIG} ]; then
   sudo cp -r /home/${COINl}${nodeunit}/${COINCONFIG} /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
 fi
+else
+  echo -e "Skipping -/home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG} Found!"
+fi
 #
-
   }
   ### Start - Masternode function_calculate_Masternode_Install
   function_new_masternode_install_menu(){
@@ -1195,7 +1202,8 @@ fi
     read -p "Enter choice " choice
     case $choice in
       1) build_first_node ;;
-      2)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_2pack.sh)
+      2) INSTALLAMOUNT=2
+      Function_Install_Secondaries
       pause ;;
       3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_3pack.sh)
       pause ;;
@@ -1323,7 +1331,7 @@ Function_Masternode_Key_Check(){
     Function_Read_Masternode_Key_Table
   fi
 }
-  Function_Build_Masternode_Key_Table(){
+Function_Build_Masternode_Key_Table(){
     local count
     echo -e ${YELLOW} "Building Masternode Keys Table"${CLEAR}
     echo -e ${RED}"This Will take a moment"${CLEAR}
@@ -1412,7 +1420,7 @@ Function_Read_Masternode_Key_Table(){
     }
 
   #First node installation Core
-  function_install(){
+  Function_First_Install(){
   function_swap_space
   function_update
   function_dependencies
