@@ -159,6 +159,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   }
   #start Masternode
   Function_Stop_Masternode(){
+    echo
   if [ -d /home/${COINl}${nodeunit} ]; then
     echo -e ${GREEN}"Stopping Masternode ${nodeunit}" ${YELLOW}
     ${COINDAEMONCLI} -datadir=${COINHOME}${nodeunit}/${COINCORE} stop
@@ -179,6 +180,14 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   nano ${COINHOME}${nodeunit}/${COINCORE}/${COINCONFIG}
   echo -e ${CLEAR}
   }
+
+  Function_ViewCat_masternode(){
+  clear
+  cat ${COINHOME}${nodeunit}/${COINCORE}/${COINCONFIG}
+  echo
+  pause
+  }
+
   # Function_Manager_WINMasternodes menu
   Function_Manager_WINMasternodes(){
   clear
@@ -332,9 +341,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     Function_Start_Masternode ;;
     10) nodeunit=10
     Function_Start_Masternode ;;
-    10) nodeunit=11
+    11) nodeunit=11
     Function_Start_Masternode ;;
-    10) nodeunit=12
+    12) nodeunit=12
     Function_Start_Masternode ;;
     a) echo -e "Launching all Mastersnodes!"
     Function_Start_All_Nodes ;;
@@ -585,35 +594,35 @@ local choice
 read -p "Enter choice : " choice
 case $choice in
   l) nodeunit=
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   L) nodeunit=
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   1) nodeunit=1
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   2) nodeunit=2
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   3) nodeunit=3
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   4) nodeunit=4
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   5) nodeunit=5
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   6) nodeunit=6
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   7) nodeunit=7
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   8) nodeunit=8
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   9) nodeunit=9
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   10) nodeunit=10
-  edit_menu_choice ;;
-  12) nodeunit=12
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   11) nodeunit=11
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
+  12) nodeunit=12
+  Function_ViewCat_masternode ;;
   0) nodeunit=0
-  edit_menu_choice ;;
+  Function_ViewCat_masternode ;;
   b) echo -e "backing out" ;;
   B) echo -e "backing out" ;;
   x) exit 0;;
@@ -707,7 +716,7 @@ esac
     Function_Stop_Masternode ;;
     11) nodeunit=11
     Function_Stop_Masternode ;;
-    12) nodeunit=2
+    12) nodeunit=12
     Function_Stop_Masternode ;;
     0) nodeunit=0
     Function_Stop_Masternode ;;
@@ -943,7 +952,7 @@ esac
   nodeunit=
   Function_Find_Masternodes
   nodeunit=0
-  until [[ $nodeunit = 10 ]]; do
+  until [[ $nodeunit = 13 ]]; do
   Function_Find_Masternodes
   nodeunit=$[$nodeunit+1]
   #if [ ${nodeunit} -eq "4" ]; then
@@ -1656,6 +1665,7 @@ Function_Read_Masternode_Key_Table(){
     INSTALLEDMN=1
     ${COINDAEMONCLI} -datadir=/home/${COINl}1/${COINCORE} stop
     sleep 15
+    echo
       until [[ $INSTALLAMOUNT = $INSTALLEDMN ]]; do
       INSTALLEDMN=$[$INSTALLEDMN+1]
       nodeunit=$[$INSTALLEDMN]
@@ -1663,7 +1673,8 @@ Function_Read_Masternode_Key_Table(){
       Function_Replicate_Node
       Function_Build_Node_Configuration
       done
-  }
+      Function_Start_All_Nodes
+    }
 
   #First node installation Core
   Function_First_Install(){
@@ -1678,10 +1689,10 @@ Function_Read_Masternode_Key_Table(){
   launch_first_node
   Function_Rocket_Delay
   wait_first_node_launch
-  if [[ ! $INSTALLAMOUNT -eq 1 ]] ; then
-    Function_Install_Secondaries
-    Function_Start_All_Nodes
-  fi
+    if [[ ! $INSTALLAMOUNT -eq 1 ]] ; then
+      Function_Install_Secondaries
+    fi
+  Function_Display_MasternodeConf
   }
 
   #Main Program Core
