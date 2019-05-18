@@ -283,6 +283,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
+  if [ -d /home/${COINl}12 ]; then
+  echo -e "12 -  Masternode Elven"
+  fi
+  if [ -d /home/${COINl}12 ]; then
+  echo -e "12 -  Masternode Twelve"
+  fi
+  if [ -d /home/${COINl}0 ]; then
+  echo -e "0 -  Masternode Zero"
+  fi
   echo -e "A -  Start All ${COIN3} Masternodes"
   echo -e "B-   Back - Previous Menu"
   echo -e "X -  Exit"
@@ -317,7 +326,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     Function_Start_Masternode ;;
     9) nodeunit=9
     Function_Start_Masternode ;;
-    10) nodeunit=0
+    10) nodeunit=10
+    Function_Start_Masternode ;;
+    10) nodeunit=11
+    Function_Start_Masternode ;;
+    10) nodeunit=12
     Function_Start_Masternode ;;
     a) echo -e "Launching all Mastersnodes!"
     Function_Start_All_Nodes ;;
@@ -370,7 +383,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
-  #echo -e "A - Re-Index All ${COIN3} Masternodes"
+  if [ -d /home/${COINl}11 ]; then
+  echo -e "11 - Masternode Ten"
+  fi
+  if [ -d /home/${COINl}12 ]; then
+  echo -e "12 - Masternode Ten"
+  fi
+  if [ -d /home/${COINl}0 ]; then
+  echo -e "0 - Masternode Zero"
+  fi
   echo -e "B-   Back - Previous Menu"
   echo -e "X -  Exit"
   function_Read_Reindex_Masternodes
@@ -403,7 +424,13 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     function_reindex_masternode ;;
     9) nodeunit=9
     function_reindex_masternode ;;
-    10) nodeunit=0
+    10) nodeunit=10
+    function_reindex_masternode ;;
+    11) nodeunit=11
+    function_reindex_masternode ;;
+    12) nodeunit=12
+    function_reindex_masternode ;;
+    0) nodeunit=0
     function_reindex_masternode ;;
     a) echo -e "Launching all Masters!"
     Function_Start_All_Nodes ;;
@@ -753,7 +780,13 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
     find_Masternodes ;;
     9) nodeunit=9
     find_Masternodes ;;
-    10) nodeunit=0
+    10) nodeunit=10
+    find_Masternodes ;;
+    11) nodeunit=11
+    find_Masternodes ;;
+    12) nodeunit=12
+    find_Masternodes ;;
+    0) nodeunit=0
     find_Masternodes ;;
     b) echo -e "backing out" ;;
     B) echo -e "backing out" ;;
@@ -1038,7 +1071,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   echo "masternodeprivkey=$PRIVK9" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   elif [[ $nodeunit -eq 10 ]] ; then
   echo "masternodeprivkey=$PRIVK10" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
-  elif [[ $nodeunit -eq 12 ]] ; then
+  elif [[ $nodeunit -eq 11 ]] ; then
   echo "masternodeprivkey=$PRIVK11" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
   elif [[ $nodeunit -eq 12 ]] ; then
   echo "masternodeprivkey=$PRIVK12" >> /home/${COINl}${nodeunit}/.${COINl}/${COINCONFIG}
@@ -1159,11 +1192,11 @@ fi
   }
   ### Start - Masternode function_calculate_Masternode_Install
   function_new_masternode_install_menu(){
-  echo -e ${GREEN}" How many ${COIN3} Masternode(s) would you like to Install? [1 - 8]"${CLEAR}
+  echo -e ${GREEN}" How many ${COIN3} Masternode(s) would you like to Install? [1 - 12]"${CLEAR}
   echo -e "Press [C] to exit"
   read -p "Enter Number : " Install_Count
   case $Install_Count in
-    1-10) echo "test fire ${Install_Count}" ;;
+    1-12) echo "test fire ${Install_Count}" ;;
     c) exit 0 ;;
     c) exit 0 ;;
     *) echo -e "${RED}Invalid Amount!${STD}" ${CLEAR} && sleep 2 ;;
@@ -1183,16 +1216,20 @@ fi
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo "  How Many Masternode Do you want to Run?"
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    echo -e "1 - One Masternode"
-    echo -e "2 - Masternode Two"
-    echo -e "3 - Masternode Three"
-    echo -e "4 - Masternode Four"
-    echo -e "5 - Masternode Five"
-    echo -e "6 - Masternode Six"
-    echo -e "7 - Masternode Seven"
-    echo -e "8 - Masternode Eight"
-    echo -e "B - Back out of Menu"
-    echo -e "X - Exit"
+    echo -e "1  - One Masternode"
+    echo -e "2  - Masternode Two"
+    echo -e "3  - Masternode Three"
+    echo -e "4  - Masternode Four"
+    echo -e "5  - Masternode Five"
+    echo -e "6  - Masternode Six"
+    echo -e "7  - Masternode Seven"
+    echo -e "8  - Masternode Eight"
+    echo -e "9  - Masternode Nine"
+    echo -e "10 - Masternode Ten"
+    echo -e "11 - Masternode Eleven"
+    echo -e "12 - Masternode Twelve"
+    echo -e "B  - Back out of Menu"
+    echo -e "X  - Exit"
     Function_Read_Masternode_Upgrade
   }
   #end function_menu_Reindex_Masternodes
@@ -1205,17 +1242,35 @@ fi
       2) INSTALLAMOUNT=2
       Function_Install_Secondaries
       pause ;;
-      3)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_3pack.sh)
+      3) INSTALLAMOUNT=3
+      Function_Install_Secondaries
       pause ;;
-      4)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_4pack.sh)
+      4)INSTALLAMOUNT=4
+      Function_Install_Secondaries
       pause ;;
-      5)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_5pack.sh)
+      5)INSTALLAMOUNT=5
+      Function_Install_Secondaries
       pause ;;
-      6)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_6pack.sh)
+      6)INSTALLAMOUNT=6
+      Function_Install_Secondaries
       pause ;;
-      7)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_7pack.sh)
+      7)INSTALLAMOUNT=7
+      Function_Install_Secondaries
       pause ;;
-      8)bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/master/Twins_8pack.sh)
+      8)INSTALLAMOUNT=8
+      Function_Install_Secondaries
+      pause ;;
+      9)INSTALLAMOUNT=9
+      Function_Install_Secondaries
+      pause ;;
+      10)INSTALLAMOUNT=10
+      Function_Install_Secondaries
+      pause ;;
+      11)INSTALLAMOUNT=11
+      Function_Install_Secondaries
+      pause ;;
+      12)INSTALLAMOUNT=12
+      Function_Install_Secondaries
       pause ;;
       b) echo -e "backing out" ;;
       B) echo -e "backing out" ;;
