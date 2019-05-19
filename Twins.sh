@@ -100,7 +100,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/sburns1369/Twins_MN_Script/mas
   ### Start - First Run Configuration
   Function_Check_First_Run(){
   local NULLREC
-  if grep -Fxq "firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
+  if grep -Fxq "${COIN3}firstrun_complete: true" /usr/local/nullentrydev/mnodes.log
     then
       echo "Not First Run - Testing Check Point"
       #Test_Pause
@@ -1081,7 +1081,7 @@ esac
       sudo echo "dependenciesInstalled: true" >> /usr/local/nullentrydev/mnodes.log
     fi
     fi
-  echo "firstrun_complete: true" >> /usr/local/nullentrydev/mnodes.log
+  echo "${COIN3}firstrun_complete: true" >> /usr/local/nullentrydev/mnodes.log
   }
   #Firstnode Installation Check
   function_first_nodecheck(){
@@ -1665,6 +1665,7 @@ Function_Read_Masternode_Key_Table(){
       echo -e "${COIN3l}12 [${MNIP12}]:$COINPORT $PRIVK12 [Transaction ID] [Transaction Output]"
     fi
     echo
+    Pause
   }
 #testpoint
   Function_Install_Secondaries(){
