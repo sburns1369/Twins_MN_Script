@@ -344,10 +344,10 @@ esac
     Function_Start_Masternode ;;
     10) nodeunit=10
     Function_Start_Masternode ;;
-    11) nodeunit=11
-    Function_Start_Masternode ;;
-    12) nodeunit=12
-    Function_Start_Masternode ;;
+    #11) nodeunit=11
+    #Function_Start_Masternode ;;
+    #12) nodeunit=12
+    #Function_Start_Masternode ;;
     a) echo -e "Launching all Mastersnodes!"
     Function_Start_All_Nodes ;;
     A) echo -e "Launching all Mastersnodes!"
@@ -399,12 +399,12 @@ esac
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
-  if [ -d /home/${COINl}11 ]; then
-  echo -e "11 - Masternode Eleven"
-  fi
-  if [ -d /home/${COINl}12 ]; then
-  echo -e "12 - Masternode Twelve"
-  fi
+  #if [ -d /home/${COINl}11 ]; then
+  #echo -e "11 - Masternode Eleven"
+  #fi
+  #if [ -d /home/${COINl}12 ]; then
+  #echo -e "12 - Masternode Twelve"
+  #fi
   if [ -d /home/${COINl}0 ]; then
   echo -e "0 - Masternode Zero"
   fi
@@ -442,10 +442,10 @@ esac
     function_reindex_masternode ;;
     10) nodeunit=10
     function_reindex_masternode ;;
-    11) nodeunit=11
-    function_reindex_masternode ;;
-    12) nodeunit=12
-    function_reindex_masternode ;;
+    #11) nodeunit=11
+    #function_reindex_masternode ;;
+    #12) nodeunit=12
+    #function_reindex_masternode ;;
     0) nodeunit=0
     function_reindex_masternode ;;
     a) echo -e "Launching all Masters!"
@@ -524,10 +524,10 @@ esac
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
-  if [ -d /home/${COINl}10 ]; then
+  if [ -d /home/${COINl}11 ]; then
   echo -e "11 - Masternode Eleven"
   fi
-  if [ -d /home/${COINl}10 ]; then
+  if [ -d /home/${COINl}12 ]; then
   echo -e "12 - Masternode Twelve"
   fi
   if [ -d /home/${COINl}0 ]; then
@@ -618,10 +618,10 @@ case $choice in
   Function_ViewCat_masternode ;;
   10) nodeunit=10
   Function_ViewCat_masternode ;;
-  11) nodeunit=11
-  Function_ViewCat_masternode ;;
-  12) nodeunit=12
-  Function_ViewCat_masternode ;;
+  #11) nodeunit=11
+  #Function_ViewCat_masternode ;;
+  #12) nodeunit=12
+  #Function_ViewCat_masternode ;;
   0) nodeunit=0
   Function_ViewCat_masternode ;;
   b) echo -e "backing out" ;;
@@ -671,10 +671,10 @@ esac
   if [ -d /home/${COINl}10 ]; then
   echo -e "10 - Masternode Ten"
   fi
-  if [ -d /home/${COINl}10 ]; then
+  if [ -d /home/${COINl}11 ]; then
   echo -e "11 - Masternode Eleven"
   fi
-  if [ -d /home/${COINl}10 ]; then
+  if [ -d /home/${COINl}12 ]; then
   echo -e "12 - Masternode Twelve"
   fi
   if [ -d /home/${COINl}0 ]; then
@@ -715,10 +715,10 @@ esac
     Function_Stop_Masternode ;;
     10) nodeunit=10
     Function_Stop_Masternode ;;
-    11) nodeunit=11
-    Function_Stop_Masternode ;;
-    12) nodeunit=12
-    Function_Stop_Masternode ;;
+    #11) nodeunit=11
+    #Function_Stop_Masternode ;;
+    #12) nodeunit=12
+    #Function_Stop_Masternode ;;
     0) nodeunit=0
     Function_Stop_Masternode ;;
     a) echo -e "Stopping all Mastersnodes!"
@@ -786,10 +786,10 @@ esac
     edit_menu_choice ;;
     10) nodeunit=10
     edit_menu_choice ;;
-    12) nodeunit=12
-    edit_menu_choice ;;
-    11) nodeunit=11
-    edit_menu_choice ;;
+    #12) nodeunit=12
+    #edit_menu_choice ;;
+    #11) nodeunit=11
+    #edit_menu_choice ;;
     0) nodeunit=0
     edit_menu_choice ;;
     b) echo -e "backing out" ;;
@@ -936,10 +936,10 @@ esac
     Find_All_Masternodes ;;
     10) nodeunit=10
     Find_All_Masternodes ;;
-    11) nodeunit=11
-    Find_All_Masternodes ;;
-    12) nodeunit=12
-    Find_All_Masternodes ;;
+    #11) nodeunit=11
+    #Find_All_Masternodes ;;
+    #12) nodeunit=12
+    #Find_All_Masternodes ;;
     0) nodeunit=0
     Find_All_Masternodes ;;
     b) echo -e "backing out" ;;
@@ -1093,7 +1093,7 @@ esac
         echo -e "${GREEN}This is going to take a few minutes, and when done will display"
         echo -e "${GREEN}information you need for your masternode.conf on your local wallet"
         echo
-        echo -e ${GREEN}"How Many Masternode Would you like to Install?"${CLEAR}
+        echo -e ${GREEN}"How Many Masternode Would you like to Install? [1 - 10]"${CLEAR}
         echo -e ${YELLOW}
         read INSTALLAMOUNT
         echo -e ${CLEAR}
@@ -1320,8 +1320,8 @@ Function_Glances(){
     echo -e "8  - Masternode Eight"
     echo -e "9  - Masternode Nine"
     echo -e "10 - Masternode Ten"
-    echo -e "11 - Masternode Eleven"
-    echo -e "12 - Masternode Twelve"
+    #echo -e "11 - Masternode Eleven"
+    #echo -e "12 - Masternode Twelve"
     echo -e "B  - Back out of Menu"
     echo -e "X  - Exit"
     Function_Read_Masternode_Upgrade
@@ -1360,12 +1360,12 @@ Function_Glances(){
       10)INSTALLAMOUNT=10
       Function_Install_Secondaries
       Function_Display_MasternodeConf ;;
-      11)INSTALLAMOUNT=11
-      Function_Install_Secondaries
-      Function_Display_MasternodeConf ;;
-      12)INSTALLAMOUNT=12
-      Function_Install_Secondaries
-      Function_Display_MasternodeConf ;;
+    #  11)INSTALLAMOUNT=11
+    #  Function_Install_Secondaries
+    #  Function_Display_MasternodeConf ;;
+    #  12)INSTALLAMOUNT=12
+    #  Function_Install_Secondaries
+    #  Function_Display_MasternodeConf ;;
       b) echo -e "backing out" ;;
       B) echo -e "backing out" ;;
       x) exit 0;;
